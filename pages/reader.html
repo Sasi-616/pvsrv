@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>People Before Process | 3D Flipbook Reader — Mr. PVS Ravindra Varma</title>
+  <meta name="description" content="Experience published books and strategic frameworks with realistic 3D page flip animation, page curling, and authentic reading acoustics.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/flipbook.css">
+
+  <!-- PDF.js for rendering uploaded PDF files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+
+  <!-- Supabase Cloud PostgreSQL Client Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-client.js"></script>
+</head>
+<body style="margin:0; background:#fdfbf7; overflow:hidden;">
+
+  <div class="flipbook-viewport" id="viewportMain">
+    
+    <!-- Top Header Bar -->
+    <header class="fb-top-bar">
+      <a href="/pages/books.html" class="fb-brand" title="Return to Books Catalog">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <img src="/assets/logo.png" alt="PVS Ravindra Varma">
+        <div class="fb-book-meta">
+          <span class="fb-book-title" id="topBookTitle">People Before Process</span>
+          <span class="fb-book-author">By PVS Ravindra Varma &bull; 3D Interactive Edition</span>
+        </div>
+      </a>
+
+      <!-- Actions -->
+      <div class="fb-top-actions">
+        <!-- Book Switcher -->
+        <select id="bookSelector" class="fb-btn-action" style="background:#1c2028; border:1px solid #334155; cursor:pointer;">
+           && $allBooks->count() > 0)
+            
+              <option value="{{ $b->slug }}" {{ $currentSlug === $b->slug ? 'selected' : '' }}>Book: {{ $b->title }}</option>
+            
+          
+            <option value="people-before-process" {{ $currentSlug === 'people-before-process' ? 'selected' : '' }}>Book: People Before Process</option>
+            <option value="leadership-habit" {{ $currentSlug === 'leadership-habit' ? 'selected' : '' }}>Book: The Leadership Habit</option>
+            <option value="culture-that-lasts" {{ $currentSlug === 'culture-that-lasts' ? 'selected' : '' }}>Book: Culture That Lasts</option>
+            <option value="human-advantage" {{ $currentSlug === 'human-advantage' ? 'selected' : '' }}>Book: The Human Advantage</option>
+          
+        </select>
+
+        <!-- Page Segregation Jump Buttons -->
+        <div style="display:flex; gap:0.35rem; align-items:center;">
+          <button type="button" class="fb-btn-action" id="btnJumpCover" title="Jump to Front Cover">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span>Cover</span>
+          </button>
+          <button type="button" class="fb-btn-action" id="btnJumpSpreads" title="Jump to Interior Reading Spreads">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            <span>Spreads</span>
+          </button>
+          <button type="button" class="fb-btn-action" id="btnJumpBackCover" title="Jump to Back Cover">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 19.5A2.5 2.5 0 0 0 17.5 17H4"></path><path d="M17.5 2H4v20h13.5a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 17.5 2z"></path></svg>
+            <span>Back</span>
+          </button>
+        </div>
+
+        <!-- Toggle Filmstrip Drawer -->
+        <button type="button" class="fb-btn-action" id="btnToggleFilmstrip" title="Toggle Visual Page Filmstrip">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          <span>Pages</span>
+        </button>
+
+        <!-- Upload PDF Button -->
+        <button type="button" class="fb-btn-action active" id="btnUploadPDF" title="Upload any PDF to read with 3D page flip">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span>Upload PDF</span>
+        </button>
+        <input type="file" id="pdfFileInput" accept="application/pdf" style="display:none;">
+
+        <!-- Table of Contents -->
+        <button type="button" class="fb-btn-action" id="btnTOC" title="Table of Contents">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span>Chapters</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button type="button" class="fb-btn-action" id="btnSoundToggle" title="Toggle Page Flip Sound">
+          <span id="soundIcon" style="display:inline-flex; align-items:center; gap:0.35rem;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <span>Sound On</span>
+          </span>
+        </button>
+
+        <!-- Fullscreen -->
+        <button type="button" class="fb-btn-action" id="btnFullscreen" title="Toggle Fullscreen">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 3D Book Stage -->
+    <main class="fb-stage-wrapper" id="flipbookStage">
+      <!-- 3D Book is mounted here by flipbook.js -->
+    </main>
+
+    <!-- Collapsible Visual Filmstrip Drawer -->
+    <div id="readerFilmstripDrawer" style="display:none; position:fixed; bottom:64px; left:0; width:100%; background:rgba(12,14,18,0.95); backdrop-filter:blur(10px); border-top:1px solid rgba(202,160,91,0.3); z-index:90; padding:0.6rem 1.5rem; box-shadow:0 -10px 25px rgba(0,0,0,0.5);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:#caa05b; font-weight:700; display:inline-flex; align-items:center; gap:0.4rem;">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          <span>Page-by-Page Segregation Filmstrip</span>
+        </span>
+        <button type="button" style="background:none; border:none; color:#8492a6; cursor:pointer; display:flex; align-items:center;" onclick="document.getElementById('readerFilmstripDrawer').style.display='none'">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div id="readerFilmstripMount"></div>
+    </div>
+
+    <!-- Bottom Controls Dock -->
+    <footer class="fb-dock">
+      <div class="fb-dock-left">
+        <button type="button" class="fb-dock-btn" id="dockBtnPrev" title="Previous Page (Left Arrow)">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button type="button" class="fb-dock-btn" id="dockBtnNext" title="Next Page (Right Arrow / Spacebar)">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      <div class="fb-page-slider-wrap">
+        <input type="range" class="fb-slider" id="fbPageSlider" min="0" max="9" value="0">
+        <span class="fb-page-indicator" id="fbPageIndicator">Cover (Page 1 of 10)</span>
+      </div>
+
+      <div class="fb-dock-right">
+        <!-- Zoom Out -->
+        <button type="button" class="fb-dock-btn" id="btnZoomOut" title="Zoom Out">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+        </button>
+        <!-- Zoom In -->
+        <button type="button" class="fb-dock-btn" id="btnZoomIn" title="Zoom In">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="11" y1="8" x2="11" y2="14"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Table of Contents Modal -->
+  <dialog class="fb-modal-dialog" id="tocModal">
+    <div class="fb-modal-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="font-family:'Playfair Display', serif; font-size:1.35rem; color:#fff;">Table of Contents</h3>
+        <button type="button" style="background:none; border:none; color:#8492a6; cursor:pointer; font-size:1.25rem;" onclick="document.getElementById('tocModal').close()">✕</button>
+      </div>
+      <p style="font-size:0.85rem; color:#8492a6; margin-top:0.35rem;">Click any chapter to flip directly to its spread:</p>
+      <ul class="fb-toc-list" id="tocItemsList">
+        <!-- Injected via JS -->
+      </ul>
+    </div>
+  </dialog>
+
+  <!-- PDF Upload Loading Overlay -->
+  <div id="pdfLoadingOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:9999; flex-direction:column; align-items:center; justify-content:center; color:#fff;">
+    <div style="width:48px; height:48px; border:3px solid rgba(202,160,91,0.3); border-top-color:#caa05b; border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom:1.5rem;"></div>
+    <h3 style="font-family:'Playfair Display', serif; font-size:1.4rem; color:#caa05b; margin-bottom:0.5rem;">Processing PDF into 3D Flipbook...</h3>
+    <p style="font-size:0.9rem; color:#cbd5e1;" id="pdfLoadingText">Extracting high-resolution pages and generating 3D sheets...</p>
+  </div>
+
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <!-- Scripts -->
+  <script src="/js/content-bridge.js"></script>
+  <script src="/js/flipbook.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      // Parse initial book slug from server or URL param
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialBookKey = urlParams.get('book') || "{{ $currentSlug ?? 'people-before-process' }}";
+
+      // Initialize 3D FlipBook
+      const book = new PVS_FlipBook('flipbookStage', {
+        bookKey: initialBookKey,
+        sound: true,
+        onPageChange: (current, total) => {
+          // Handled internally in updateControls
+        }
+      });
+
+      book.mountFilmstrip('readerFilmstripMount');
+
+      // Segregated Page Jump Handlers
+      document.getElementById('btnJumpCover')?.addEventListener('click', () => book.jumpToPage(0));
+      document.getElementById('btnJumpSpreads')?.addEventListener('click', () => book.jumpToPage(1));
+      document.getElementById('btnJumpBackCover')?.addEventListener('click', () => {
+        if (book.pages) book.jumpToPage(book.pages.length - 1);
+      });
+
+      // Toggle Filmstrip Drawer
+      document.getElementById('btnToggleFilmstrip')?.addEventListener('click', () => {
+        const drawer = document.getElementById('readerFilmstripDrawer');
+        if (drawer) {
+          const isHidden = drawer.style.display === 'none' || !drawer.style.display;
+          drawer.style.display = isHidden ? 'block' : 'none';
+          if (isHidden) book.renderFilmstrip();
+        }
+      });
+
+      // Synchronize book selector dropdown
+      const bookSelector = document.getElementById('bookSelector');
+      if (bookSelector) {
+        bookSelector.value = initialBookKey;
+        bookSelector.addEventListener('change', (e) => {
+          const key = e.target.value;
+          book.loadBook(key);
+          const topTitle = document.getElementById('topBookTitle');
+          if (topTitle && book.currentBook) {
+            topTitle.textContent = book.currentBook.title;
+          }
+        });
+      }
+
+      // Dock buttons
+      document.getElementById('dockBtnNext')?.addEventListener('click', () => book.flipNext());
+      document.getElementById('dockBtnPrev')?.addEventListener('click', () => book.flipPrev());
+
+      // Slider navigation
+      const slider = document.getElementById('fbPageSlider');
+      if (slider) {
+        slider.addEventListener('input', (e) => {
+          book.jumpToPage(parseInt(e.target.value, 10));
+        });
+      }
+
+      // Zoom controls
+      let zoomLevel = 1.0;
+      document.getElementById('btnZoomIn')?.addEventListener('click', () => {
+        zoomLevel = Math.min(1.4, zoomLevel + 0.1);
+        book.setZoom(zoomLevel);
+      });
+      document.getElementById('btnZoomOut')?.addEventListener('click', () => {
+        zoomLevel = Math.max(0.8, zoomLevel - 0.1);
+        book.setZoom(zoomLevel);
+      });
+
+      // Sound toggle
+      const btnSound = document.getElementById('btnSoundToggle');
+      const soundIcon = document.getElementById('soundIcon');
+      if (btnSound && soundIcon) {
+        btnSound.addEventListener('click', () => {
+          const enabled = book.toggleSound();
+          soundIcon.innerHTML = enabled
+            ? `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>Sound On</span>`
+            : `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg><span>Sound Off</span>`;
+          btnSound.classList.toggle('active', enabled);
+        });
+      }
+
+      // Fullscreen toggle
+      document.getElementById('btnFullscreen')?.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => console.warn(err));
+        } else {
+          document.exitFullscreen();
+        }
+      });
+
+      // Table of Contents Modal
+      const tocBtn = document.getElementById('btnTOC');
+      const tocModal = document.getElementById('tocModal');
+      const tocList = document.getElementById('tocItemsList');
+
+      if (tocBtn && tocModal && tocList) {
+        tocBtn.addEventListener('click', () => {
+          tocList.innerHTML = '';
+          book.pages.forEach((p, idx) => {
+            if (p.title || p.chapter) {
+              const li = document.createElement('li');
+              li.className = 'fb-toc-item';
+              li.innerHTML = `
+                <span>${p.chapter ? `<strong>${p.chapter}:</strong> ` : ''}${p.title || 'Chapter Spread'}</span>
+                <span style="font-size:0.75rem; color:#caa05b; text-transform:uppercase;">Page ${idx + 1}</span>
+              `;
+              li.addEventListener('click', () => {
+                tocModal.close();
+                book.jumpToPage(idx);
+              });
+              tocList.appendChild(li);
+            }
+          });
+          tocModal.showModal();
+        });
+      }
+
+      // PDF Upload Handler
+      const uploadBtn = document.getElementById('btnUploadPDF');
+      const fileInput = document.getElementById('pdfFileInput');
+      const overlay = document.getElementById('pdfLoadingOverlay');
+
+      if (uploadBtn && fileInput && overlay) {
+        uploadBtn.addEventListener('click', () => {
+          fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (!file || file.type !== 'application/pdf') {
+            alert('Please select a valid PDF document.');
+            return;
+          }
+
+          overlay.style.display = 'flex';
+          const topTitle = document.getElementById('topBookTitle');
+          if (topTitle) topTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+
+          book.loadCustomPDF(file, (numPages) => {
+            overlay.style.display = 'none';
+            alert(`Successfully rendered ${numPages} PDF pages into 3D Flipbook! Use arrow keys or click corners to flip.`);
+          });
+        });
+      }
+
+      // Drag & Drop PDF
+      window.addEventListener('dragover', (e) => e.preventDefault());
+      window.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          const file = e.dataTransfer.files[0];
+          if (file.type === 'application/pdf' && overlay) {
+            overlay.style.display = 'flex';
+            const topTitle = document.getElementById('topBookTitle');
+            if (topTitle) topTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+            book.loadCustomPDF(file, (numPages) => {
+              overlay.style.display = 'none';
+              alert(`Successfully rendered ${numPages} PDF pages into 3D Flipbook!`);
+            });
+          }
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
+

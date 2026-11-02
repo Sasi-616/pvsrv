@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Test Artifacts & Reports
+playwright-report/
+test-results/
+
+# Environment local overrides (if any)
+.env.local
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+*.log

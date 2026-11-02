@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PVS Ravindra Varma | Senior HR Leader, Author & Keynote Speaker</title>
+  <meta name="description" content="Thoughts, experiences and published strategic frameworks on leadership, culture, and organizational development by Mr. PVS Ravindra Varma.">
+  <meta name="csrf-token" content="pvsrv_cf_token">
+
+  <!-- Preconnect & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Theme Stylesheets (Pure Luxury Light Theme) -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/platform.css">
+  
+
+  <!-- Supabase Cloud PostgreSQL Client Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-client.js"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. HEADER / NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      
+      <!-- Logo Lockup -->
+      <a href="/" class="brand-logo" aria-label="PVS Ravindra Varma Home">
+        <img src="/assets/logo.png" alt="PVS Ravindra Varma - Senior HR Leader, Author & Keynote Speaker" width="1302" height="625">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="/" class="nav-link ">Home</a></li>
+          <li class="nav-item"><a href="/pages/about.html" class="nav-link ">About</a></li>
+          <li class="nav-item"><a href="/pages/blogs.html" class="nav-link ">Read</a></li>
+          <li class="nav-item"><a href="/pages/books.html" class="nav-link ">Books</a></li>
+          <li class="nav-item"><a href="/pages/quiz.html" class="nav-link ">Quiz</a></li>
+          <li class="nav-item"><a href="/pages/sitemap.html" class="nav-link ">Explore</a></li>
+          <li class="nav-item"><a href="/pages/contact.html" class="nav-link ">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="header-actions">
+        <!-- Search Button -->
+        <button class="icon-search-btn" id="openSearchBtn" aria-label="Search site" title="Search site (Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Let's Connect CTA Button -->
+        <a href="/pages/contact.html" class="btn btn-gold-pill">
+          <span>Let's Connect</span>
+          <svg class="arrow-icon" viewBox="0 0 20 20" width="15" height="15" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main>
+    <!-- =========================================================================
+       2. HERO SECTION
+       ========================================================================= -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-dark"></div>
+
+    <div class="hero-grid-container">
+      
+      <!-- Hero Left Column -->
+      <div class="hero-left-col">
+        <!-- Tagline Pill -->
+        <div class="hero-tagline-strip">
+          <span>PEOPLE</span>
+          <span class="dot">•</span>
+          <span>CULTURE</span>
+          <span class="dot">•</span>
+          <span>PURPOSE</span>
+          <span class="dot">•</span>
+          <span>PROGRESS</span>
+        </div>
+
+        <!-- Hero Headline -->
+        <h1 class="hero-main-title">
+          Building People for a<br>
+          Brighter Tomorrow
+        </h1>
+
+        <!-- Hero Subtitle -->
+        <p class="hero-subtext">
+          Thoughts, experiences and ideas on people, leadership, organizational growth and a more inclusive tomorrow.
+        </p>
+
+        <!-- Dual Action Buttons -->
+        <div class="hero-button-row">
+          <a href="#about" class="btn btn-gold-solid">
+            <span>Explore My Work</span>
+            <svg class="arrow-icon" viewBox="0 0 20 20" width="15" height="15" fill="currentColor">
+              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+
+          <button class="btn btn-glass-dark" id="watchStoryBtn" aria-label="Watch Story Video" onclick="openVideoPlayerModal('my-story')">
+            <span class="play-circle">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </span>
+            <span>Watch My Story</span>
+          </button>
+        </div>
+
+        <!-- Key Metrics Counter Row -->
+        <div class="hero-metrics-bar">
+          <div class="metric-item">
+            <div class="metric-val"><span class="counter" data-target="25">25</span><span class="plus-sign">+</span></div>
+            <div class="metric-desc">Years of<br>Experience</div>
+          </div>
+
+          <div class="metric-item">
+            <div class="metric-val"><span class="counter" data-target="100">100</span><span class="plus-sign">+</span></div>
+            <div class="metric-desc">Teams Built</div>
+          </div>
+
+          <div class="metric-item">
+            <div class="metric-val"><span class="counter" data-target="5000">5000</span><span class="plus-sign">+</span></div>
+            <div class="metric-desc">Lives Touched</div>
+          </div>
+
+          <div class="metric-item">
+            <div class="metric-val infinity-icon">∞</div>
+            <div class="metric-desc">Possibilities<br>Ahead</div>
+          </div>
+        </div>
+
+        <!-- Handwritten Quote in Hero -->
+        <div class="hero-quote-box">
+          <p class="hero-handwritten-quote">“People are not resources.<br>&nbsp;&nbsp;They are possibilities.”</p>
+          <p class="hero-quote-by">— PVS RAVINDRA VARMA</p>
+        </div>
+      </div>
+
+      <!-- Hero Right Column: Exact Executive Portrait & Study Scene -->
+      <div class="hero-portrait-col">
+        <div class="portrait-stage">
+          <img src="/assets/ravindravarma.jpeg" alt="Mr. PVS Ravindra Varma - Senior HR Leader" class="portrait-photo" width="1080" height="1347" loading="eager">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       3. FLOATING CORE PILLARS RIBBON
+       ========================================================================= -->
+  <section class="floating-pillars-section" id="pillars">
+    <div class="pillars-card-bar">
+      <a href="/pages/about.html#pillar-1" class="pillar-tab" aria-label="Pillar 1: People Development">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <span class="pillar-name">People<br>Development</span>
+      </a>
+
+      <a href="/pages/about.html#pillar-2" class="pillar-tab" aria-label="Pillar 2: Organizational Effectiveness">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+            <line x1="2" y1="20" x2="22" y2="20"></line>
+          </svg>
+        </div>
+        <span class="pillar-name">Organizational<br>Effectiveness</span>
+      </a>
+
+      <a href="/pages/about.html#pillar-3" class="pillar-tab" aria-label="Pillar 3: Leadership Advisory">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6"></path>
+            <path d="M10 22h4"></path>
+            <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+          </svg>
+        </div>
+        <span class="pillar-name">Leadership<br>Advisory</span>
+      </a>
+
+      <a href="/pages/about.html#pillar-4" class="pillar-tab" aria-label="Pillar 4: Inclusive Growth">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </div>
+        <span class="pillar-name">Inclusive<br>Growth</span>
+      </a>
+
+      <a href="/pages/about.html#pillar-5" class="pillar-tab" aria-label="Pillar 5: Culture and Engagement">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+          </svg>
+        </div>
+        <span class="pillar-name">Culture<br>&amp; Engagement</span>
+      </a>
+
+      <a href="/pages/about.html#pillar-6" class="pillar-tab" aria-label="Pillar 6: Talent and Leadership">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+        </div>
+        <span class="pillar-name">Talent<br>&amp; Leadership</span>
+      </a>
+
+      <a href="/pages/about.html#pillar-7" class="pillar-tab" aria-label="Pillar 7: Social Impact">
+        <div class="pillar-ico">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </div>
+        <span class="pillar-name">Social<br>Impact</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       4. ABOUT SECTION
+       ========================================================================= -->
+  <section class="about-section" id="about">
+    <div class="content-wrapper">
+      <div class="about-flex-layout">
+        
+        <div class="about-bio-side">
+          <span class="section-label-gold">ABOUT</span>
+          <h2 class="section-title-serif">A People-First Leader</h2>
+
+          <p class="about-paragraph">
+            PVS Ravindra Varma is a senior HR and organizational development professional with extensive experience in talent acquisition, leadership development, organizational effectiveness and people strategy.
+          </p>
+
+          <p class="about-paragraph">
+            With a passion for building human-centric organizations, he works towards creating workplaces where people thrive and businesses grow.
+          </p>
+
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+            <a href="/pages/about.html" class="btn btn-brown-pill">
+              <span>Know More About Me</span>
+              <svg class="arrow-icon" viewBox="0 0 20 20" width="15" height="15" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+            <button type="button" class="btn btn-glass-dark" id="quickBioBtn" onclick="openAboutBioModal()" style="border-radius:24px; padding:0.6rem 1.2rem; cursor:pointer;">
+              <span>Quick Bio</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="about-quote-center">
+          <div class="about-quote-elegant">
+            <p class="about-handwritten-text">
+              “Great<br>organizations<br>are built by<br>great people.”
+            </p>
+            <div class="about-quote-gold-bar"></div>
+          </div>
+        </div>
+
+        <div class="about-list-side">
+          <ul class="about-competency-list">
+            <li class="competency-item">
+              <div class="competency-icon-sq">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <span class="competency-title">Strategy &amp; People</span>
+            </li>
+            <li class="competency-item">
+              <div class="competency-icon-sq">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <span class="competency-title">Talent &amp; Leadership</span>
+            </li>
+            <li class="competency-item">
+              <div class="competency-icon-sq">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </div>
+              <span class="competency-title">Culture &amp; Inclusion</span>
+            </li>
+            <li class="competency-item">
+              <div class="competency-icon-sq">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                  <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+              </div>
+              <span class="competency-title">Learning &amp; Development</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       5. BOOKS & 3D FLIPBOOK SECTION
+       ========================================================================= -->
+  <section class="books-section" id="books">
+    <div class="content-wrapper">
+      
+      <div class="section-title-strip">
+        <div>
+          <span class="section-label-gold">BOOKS</span>
+          <h2 class="section-title-serif">Thoughts Captured in Pages</h2>
+          <p class="section-lead-text">Books that inspire, guide and transform thinking.</p>
+        </div>
+        
+        <a href="/pages/books.html" class="link-view-all">
+          <span>View All Books</span>
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Carousel Container -->
+      <div class="books-carousel-wrapper">
+        <button class="carousel-nav-btn prev-btn" id="carouselPrevBtn" aria-label="Previous Book">&larr;</button>
+
+        <div class="books-viewport" id="booksScroller">
+          <div class="books-flex-row">
+            
+              <div class="book-item" data-book-id="{{ $book->id }}" data-book-key="{{ $book->slug }}">
+                <a href="{{ route('books.reader', $book->slug) }}" class="book-cover-wrap" title="Read {{ $book->title }} in 3D Flipbook" style="display:block; position:relative; text-decoration:none;">
+                  <img src="{{ asset($book->cover ?? 'assets/books/culture-that-lasts.png') }}" alt="{{ $book->title }} Cover" class="book-img" width="250" height="304" loading="lazy" onerror="this.src='/assets/books/culture-that-lasts.png'">
+                  <span class="book-flipbook-badge" style="position:absolute; bottom:8px; right:8px; background:rgba(14,16,21,0.92); color:#caa05b; font-size:0.68rem; font-weight:700; padding:0.25rem 0.55rem; border-radius:4px; border:1px solid rgba(202,160,91,0.5); display:inline-flex; align-items:center; gap:0.35rem;">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    <span>3D Flipbook</span>
+                  </span>
+                </a>
+                <h3 class="book-title-heading"><a href="{{ route('books.reader', $book->slug) }}" style="color:inherit; text-decoration:none;">{{ $book->title }}</a></h3>
+                <p class="book-caption-sub">{{ $book->subtitle ?? ($book->category ?? 'Executive Volume') }}</p>
+                <div style="margin-top:0.6rem; display:flex; gap:0.4rem; justify-content:center;">
+                  <a href="{{ route('books.reader', $book->slug) }}" class="btn btn-sm" style="display:inline-flex; align-items:center; gap:0.35rem; font-size:0.74rem; padding:0.3rem 0.75rem; background:#caa05b; color:#111215; font-weight:700; border-radius:20px; text-decoration:none;">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    <span>Read 3D</span>
+                  </a>
+                  <button type="button" class="btn btn-sm btn-book-details" data-book-key="{{ $book->slug }}" onclick="openBookSynopsisModal('{{ $book->slug }}')" style="cursor:pointer; font-size:0.74rem; padding:0.3rem 0.75rem; background:rgba(0,0,0,0.06); color:#334155; border:1px solid #cbd5e1; border-radius:20px;">Details</button>
+                </div>
+              </div>
+            
+          </div>
+        </div>
+
+        <button class="carousel-nav-btn next-btn" id="carouselNextBtn" aria-label="Next Book">&rarr;</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       6. BLOGS SECTION
+       ========================================================================= -->
+  <section class="blogs-section" id="blogs">
+    <div class="content-wrapper">
+      
+      <div class="section-title-strip">
+        <div>
+          <span class="section-label-gold">BLOGS</span>
+          <h2 class="section-title-serif">Thoughts for a Better Tomorrow</h2>
+          <p class="section-lead-text">Insights on leadership, people, workplace trends and more.</p>
+        </div>
+        
+        <a href="/pages/blogs.html" class="link-view-all">
+          <span>View All Blogs</span>
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- 3 Blog Cards -->
+      <div class="blogs-grid-triad">
+        
+          <div class="blog-card" data-blog-id="{{ $article->id }}">
+            <div class="blog-img-box">
+              <img src="{{ asset($article->cover_img ?? 'assets/blogs/growth-mindset.jpg') }}" alt="{{ $article->title }}" class="blog-cover-img" width="600" height="340" loading="lazy">
+            </div>
+            <div class="blog-details">
+              <span class="blog-publish-date">{{ $article->date ?? 'RECENT PUBLICATION' }}</span>
+              <h3 class="blog-article-title">{{ $article->title }}</h3>
+              <p class="blog-brief-summary">{{ $article->summary ?? \Illuminate\Support\Str::limit(strip_tags($article->body), 110) }}</p>
+              <button class="link-read-more" onclick="openBlogArticleModal('{{ $article->slug ?? $article->id }}')">
+                <span>Read More</span>
+                <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       7. VIDEOS SECTION
+       ========================================================================= -->
+  <section class="videos-section" id="videos">
+    <div class="content-wrapper">
+      <div class="section-title-strip">
+        <div>
+          <span class="section-label-gold">VIDEOS</span>
+          <h2 class="section-title-serif">Watch. Learn. Grow.</h2>
+          <p class="section-lead-text">Talks, interviews and insights on people, leadership and organizational growth.</p>
+        </div>
+        <a href="/pages/videos.html" class="link-view-all">
+          <span>View All Videos</span>
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="videos-grid-triad">
+        <div class="video-item" data-video-id="1">
+          <div class="video-preview-stage">
+            <img src="/assets/videos/video-future-work.jpg" alt="The Future of Work" class="video-thumb-pic" width="600" height="340" loading="lazy">
+            <button class="circle-play-overlay" data-video="1" aria-label="Play: The Future of Work">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+            <span class="video-time-tag">12:34</span>
+          </div>
+          <h3 class="video-headline">The Future of Work</h3>
+        </div>
+
+        <div class="video-item" data-video-id="2">
+          <div class="video-preview-stage">
+            <img src="/assets/videos/video-people-first.jpg" alt="Building a People-First Culture" class="video-thumb-pic" width="600" height="340" loading="lazy">
+            <button class="circle-play-overlay" data-video="2" aria-label="Play: Building a People-First Culture">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+            <span class="video-time-tag">16:20</span>
+          </div>
+          <h3 class="video-headline">Building a People-First Culture</h3>
+        </div>
+
+        <div class="video-item" data-video-id="3">
+          <div class="video-preview-stage">
+            <img src="/assets/videos/video-leadership-lessons.jpg" alt="Leadership Lessons from Experience" class="video-thumb-pic" width="600" height="340" loading="lazy">
+            <button class="circle-play-overlay" data-video="3" aria-label="Play: Leadership Lessons from Experience">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+            <span class="video-time-tag">15:10</span>
+          </div>
+          <h3 class="video-headline">Leadership Lessons from Experience</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       8. INSPIRATIONAL QUOTE BANNER
+       ========================================================================= -->
+  <section class="quote-mountain-banner" id="quote-banner" aria-label="Inspirational Quote">
+    <div class="banner-photo-wrapper">
+      <img src="/assets/banner-mountain.jpg" alt="" class="banner-full-img" width="1752" height="240" loading="lazy" aria-hidden="true">
+      <div class="banner-text-overlay">
+        <blockquote class="banner-quote-text">
+          “When people grow, organizations thrive, and societies move forward.”
+        </blockquote>
+        <cite class="banner-quote-author">— PVS RAVINDRA VARMA</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       9. CONTACT SECTION
+       ========================================================================= -->
+  <section class="contact-section" id="contact">
+    <div class="content-wrapper">
+      <div class="contact-dual-grid">
+        
+        <div class="contact-details-side">
+          <span class="section-label-gold">CONTACT</span>
+          <h2 class="section-title-serif">Let's Connect</h2>
+          <p class="contact-lead-desc">
+            For collaborations, speaking engagements, feedback or strategic advisory — I'd love to hear from you.
+          </p>
+
+          <ul class="contact-links-list">
+            <li class="contact-row">
+              <div class="contact-icon-frame">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <a href="mailto:connect@pvsravindravarma.in" class="contact-anchor">connect@pvsravindravarma.in</a>
+            </li>
+            <li class="contact-row">
+              <div class="contact-icon-frame">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <span class="contact-plain-text">Hyderabad, India</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-form-side">
+          <form class="clean-contact-form" id="contactForm" onsubmit="handleFormSubmission(event)" novalidate>
+            
+            <div class="form-dual-inputs">
+              <div class="input-block">
+                <label for="userName" class="input-label">Your Name <span class="req">*</span></label>
+                <input type="text" id="userName" name="name" class="clean-field" placeholder="e.g. Anand Sharma" required autocomplete="name">
+                <span class="err-hint" id="nameError"></span>
+              </div>
+              <div class="input-block">
+                <label for="userEmail" class="input-label">Your Email <span class="req">*</span></label>
+                <input type="email" id="userEmail" name="email" class="clean-field" placeholder="name@organization.com" required autocomplete="email">
+                <span class="err-hint" id="emailError"></span>
+              </div>
+            </div>
+
+            <div class="input-block">
+              <label for="userInquiry" class="input-label">Inquiry Type</label>
+              <select id="userInquiry" name="inquiry" class="clean-select">
+                <option value="keynote">Keynote Address / Guest Speaker</option>
+                <option value="advisory" selected>Executive Advisory &amp; Organization Culture</option>
+                <option value="coaching">Leadership Coaching / Mentorship</option>
+                <option value="media">Media Interview / Panel Discussion</option>
+                <option value="general">General Collaboration</option>
+              </select>
+            </div>
+
+            <div class="input-block">
+              <label for="userMessage" class="input-label">Your Message <span class="req">*</span></label>
+              <textarea id="userMessage" name="message" class="clean-textarea" rows="4" placeholder="Briefly outline your team's context, event, or consultation goals..." required></textarea>
+              <span class="err-hint" id="messageError"></span>
+            </div>
+
+            <button type="submit" class="btn btn-dark-pill" id="submitBtn">
+              <span>Send Message</span>
+              <svg class="arrow-icon" viewBox="0 0 20 20" width="15" height="15" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <div class="footer-main-row">
+        <div class="footer-brand-col">
+          <a href="/" class="footer-logo">
+            <img src="/assets/logo.png" alt="PVS Ravindra Varma" width="1302" height="625" loading="lazy">
+          </a>
+          <p class="footer-quote">
+            "Culture is not a poster on the wall. It is the sum of choices your people make when nobody is watching."
+          </p>
+        </div>
+
+        <nav class="footer-links-nav" aria-label="Footer Menu">
+          <a href="/">Home</a>
+          <a href="/pages/about.html">About</a>
+          <a href="/pages/books.html">Books</a>
+          <a href="/pages/blogs.html">Blogs</a>
+          <a href="/pages/videos.html">Videos</a>
+          <a href="/pages/contact.html">Contact</a>
+          <a href="/pages/sitemap.html">Sitemap</a>
+          <a href="/admin/cms.html">Admin Portal</a>
+        </nav>
+
+        <div class="footer-social-icons">
+          <a href="https://linkedin.com/in/ravindravarma" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-copyright-strip">
+        <span>© 2026 PVS Ravindra Varma. All rights reserved.</span>
+        <span class="footer-tagline-quote">People. Ideas. A Better Tomorrow.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODALS
+       ========================================================================= -->
+
+  <!-- Search Modal -->
+  <dialog class="app-dialog search-dialog" id="searchModal" aria-labelledby="searchTitle">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <div class="search-input-wrapper">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="siteSearchInput" placeholder="Search books, blogs, videos, pillars..." aria-label="Search content">
+          <kbd class="kbd-shortcut">ESC</kbd>
+        </div>
+        <button class="dialog-close-btn" id="closeSearchModal" aria-label="Close search">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="search-results-list" id="searchResultsList">
+          <div class="search-hint">Type keywords like <em>"Growth Mindset"</em>, <em>"Culture"</em>, <em>"Future of Work"</em>...</div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Video Modal -->
+  <dialog class="app-dialog video-modal" id="videoModal" aria-labelledby="videoModalTitle">
+    <div class="dialog-card video-card-wrapper">
+      <button class="dialog-close-btn video-close-btn" id="closeVideoModalBtn" aria-label="Close video player">✕</button>
+      <div class="video-player-container">
+        <div class="simulated-video-screen" id="videoScreen">
+          <div class="video-overlay-banner">
+            <h3 id="videoModalTitle">The Future of Work</h3>
+            <span class="video-speaker-tag">PVS Ravindra Varma — Keynote Address</span>
+          </div>
+          <div class="video-center-indicator" id="videoPlayingState">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="#ffffff" opacity="0.9">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="video-custom-controls">
+          <button class="video-ctrl-btn" id="videoPlayPauseBtn" aria-label="Play / Pause">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          </button>
+          <div class="video-progress-bar-wrap" id="videoProgressWrap">
+            <div class="video-progress-fill" id="videoProgressFill"></div>
+          </div>
+          <span class="video-timer-display" id="videoTimeDisplay">04:15 / 12:34</span>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Book Synopsis Modal -->
+  <dialog class="app-dialog book-modal" id="bookModal" aria-labelledby="bookModalTitle">
+    <div class="dialog-card book-modal-card">
+      <div class="dialog-header">
+        <h3 id="bookModalTitle" class="dialog-title-serif">Book Overview</h3>
+        <button class="dialog-close-btn" id="closeBookModalBtn" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body" id="bookModalBody">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Quick Bio Modal -->
+  <dialog class="app-dialog about-modal" id="aboutModal" aria-labelledby="aboutModalTitle">
+    <div class="dialog-card about-modal-card">
+      <div class="dialog-header">
+        <h3 id="aboutModalTitle" class="dialog-title-serif">PVS Ravindra Varma — Executive Biography</h3>
+        <button class="dialog-close-btn" id="closeAboutModalBtn" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body">
+        <p>With over two and a half decades in strategic human resources, executive coaching, and organizational design, Mr. PVS Ravindra Varma has advised leading corporations, high-growth startups, and social impact institutions across India and globally.</p>
+        <p>His published works focus on human-centric workplaces, empathetic governance, and systemic resilience.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Blog Reader Modal -->
+  <dialog class="app-dialog blog-modal" id="blogModal" aria-labelledby="blogModalTitle">
+    <div class="dialog-card blog-modal-card">
+      <div class="dialog-header">
+        <h3 id="blogModalTitle" class="dialog-title-serif">Article Overview</h3>
+        <button class="dialog-close-btn" id="closeBlogModalBtn" aria-label="Close article">✕</button>
+      </div>
+      <div class="dialog-body" id="blogModalBody">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- JavaScript -->
+  <script src="/js/app.js"></script>
+  <script src="/content/registry.js"></script>
+  <script src="/js/platform.js"></script>
+  <script src="/js/content-bridge.js"></script>
+  
+</body>
+</html>
+

@@ -1,0 +1,7 @@
+PVS.register('quiz/bank/children/001', [
+  { id: 'children-000001', q: 'How many legs does a spider have?', options: ['6', '8', '10', '4'], answer: 1, explain: 'Spiders are arachnids, characterized by having 8 jointed legs, unlike insects which have 6 legs.', difficulty: 'easy', lang: 'en' },
+  { id: 'children-000002', q: 'Which is the largest ocean on Earth?', options: ['Atlantic', 'Indian', 'Arctic', 'Pacific'], answer: 3, explain: 'The Pacific Ocean covers over 30% of the Earth’s total surface area, making it larger than all landmasses combined.', difficulty: 'easy', lang: 'en' },
+  { id: 'children-000003', q: 'How many days are there in a leap year?', options: ['364', '365', '366', '367'], answer: 2, explain: 'A leap year has 366 days because an extra leap day (February 29) is added to synchronize with the Earth’s orbit around the Sun.', difficulty: 'easy', lang: 'en' },
+  { id: 'children-000004', q: 'What is the national animal of India?', options: ['Lion', 'Elephant', 'Tiger', 'Peacock'], answer: 2, explain: 'The Royal Bengal Tiger (Panthera tigris) was declared the national animal of India in 1973 for its strength, grace, and wildlife significance.', difficulty: 'easy', lang: 'en' },
+  { id: 'children-000005', q: 'Which colour do you get when you mix blue and yellow?', options: ['Green', 'Purple', 'Orange', 'Brown'], answer: 0, explain: 'In subtractive color mixing of pigments, blending the primary colors blue and yellow produces green.', difficulty: 'easy', lang: 'en' }
+]);

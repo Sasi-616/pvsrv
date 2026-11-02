@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Quiz Platform | Mr. PVS Ravindra Varma</title>
+  <meta name="description" content="Engage with curated knowledge across leadership, human-centric culture, and Telugu literature. Practice with multiple-choice Option Quizzes or direct Question, Answer & Reason study cards.">
+  <meta name="csrf-token" content="pvsrv_cf_token">
+
+  <!-- Preconnect & Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Theme Stylesheets (Pure Luxury Light Theme) -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/platform.css">
+  <style>
+  :root {
+    --qz-bg-page: #faf7f2;
+    --qz-bg-card: #ffffff;
+    --qz-bg-subtle: #f5f0e8;
+    --qz-border: #e8e0d2;
+    --qz-border-active: #caa05b;
+    --qz-text-heading: #14171d;
+    --qz-text-body: #334155;
+    --qz-text-muted: #64748b;
+    --qz-gold: #966e36;
+    --qz-gold-light: #caa05b;
+    --qz-green: #059669;
+    --qz-green-bg: #ecfdf5;
+    --qz-green-border: #a7f3d0;
+    --qz-red: #dc2626;
+    --qz-red-bg: #fef2f2;
+    --qz-red-border: #fecaca;
+  }
+
+  .quiz-hero-header {
+    background: linear-gradient(180deg, #f3ede2 0%, #faf7f2 100%);
+    border-bottom: 1px solid var(--qz-border);
+    padding: 3.5rem 1.5rem 2.5rem;
+    text-align: center;
+  }
+
+  .quiz-lead-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(150, 110, 54, 0.1);
+    color: var(--qz-gold);
+    border: 1px solid rgba(150, 110, 54, 0.25);
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-page-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--qz-text-heading);
+    margin: 0 0 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .quiz-page-subtitle {
+    font-size: 1.05rem;
+    color: var(--qz-text-muted);
+    max-width: 680px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.6;
+  }
+
+  .quiz-format-bar {
+    display: inline-flex;
+    background: #ffffff;
+    border: 1px solid var(--qz-border);
+    border-radius: 999px;
+    padding: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .quiz-format-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--qz-text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-format-btn.active {
+    background: var(--qz-text-heading);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(20, 23, 29, 0.2);
+  }
+
+  .quiz-format-btn:hover:not(.active) {
+    color: var(--qz-text-heading);
+    background: var(--qz-bg-subtle);
+  }
+
+  .quiz-cats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 2rem auto 0;
+    max-width: 900px;
+  }
+
+  .quiz-cat-pill {
+    background: #ffffff;
+    border: 1px solid var(--qz-border);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--qz-text-body);
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .quiz-cat-pill:hover {
+    border-color: var(--qz-gold-light);
+    color: var(--qz-gold);
+  }
+
+  .quiz-cat-pill.active {
+    background: var(--qz-gold);
+    color: #ffffff;
+    border-color: var(--qz-gold);
+  }
+
+  .quiz-stats-strip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 780px;
+    margin: 2rem auto 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--qz-border);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .stat-badge-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .stat-badge {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    color: var(--qz-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-badge strong {
+    font-size: 1.15rem;
+    color: var(--qz-text-heading);
+    margin-top: 0.1rem;
+  }
+
+  .quiz-card-container {
+    max-width: 780px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+  }
+
+  .quiz-main-card {
+    background: #ffffff;
+    border: 1px solid var(--qz-border);
+    border-radius: 16px;
+    padding: 2.25rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+  }
+
+  .quiz-meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .quiz-tag-type {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--qz-gold);
+    background: rgba(150, 110, 54, 0.1);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    border: 1px solid rgba(150, 110, 54, 0.2);
+  }
+
+  .quiz-q-number {
+    font-size: 0.8rem;
+    color: var(--qz-text-muted);
+    font-weight: 600;
+  }
+
+  .quiz-question-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.45rem;
+    color: var(--qz-text-heading);
+    line-height: 1.4;
+    margin: 0 0 1.75rem;
+    font-weight: 700;
+  }
+
+  .quiz-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .quiz-opt-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: #faf7f2;
+    border: 1.5px solid var(--qz-border);
+    border-radius: 10px;
+    font-size: 0.98rem;
+    color: var(--qz-text-body);
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  .quiz-opt-btn:hover:not(:disabled) {
+    background: #ffffff;
+    border-color: var(--qz-gold-light);
+    box-shadow: 0 4px 12px rgba(202, 160, 91, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .quiz-opt-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e9e2d5;
+    color: var(--qz-text-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-opt-btn.correct {
+    background: var(--qz-green-bg) !important;
+    border-color: var(--qz-green) !important;
+    color: #065f46 !important;
+    font-weight: 600;
+  }
+
+  .quiz-opt-btn.correct .quiz-opt-letter {
+    background: var(--qz-green) !important;
+    color: #ffffff !important;
+  }
+
+  .quiz-opt-btn.wrong {
+    background: var(--qz-red-bg) !important;
+    border-color: var(--qz-red) !important;
+    color: #991b1b !important;
+  }
+
+  .quiz-opt-btn.wrong .quiz-opt-letter {
+    background: var(--qz-red) !important;
+    color: #ffffff !important;
+  }
+
+  .quiz-feedback-box {
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .quiz-feedback-box.correct {
+    background: var(--qz-green-bg);
+    border: 1px solid var(--qz-green-border);
+    color: #065f46;
+  }
+
+  .quiz-feedback-box.wrong {
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    color: #92400e;
+  }
+
+  .quiz-reason-title {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .quiz-reason-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--qz-text-body);
+    margin: 0;
+  }
+
+  .qa-mode-box {
+    margin-top: 1rem;
+  }
+
+  .qa-reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--qz-gold);
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(150, 110, 54, 0.25);
+    transition: all 0.2s ease;
+  }
+
+  .qa-reveal-btn:hover {
+    background: #7d5a2b;
+    transform: translateY(-1px);
+  }
+
+  .qa-revealed-card {
+    display: none;
+    animation: fadeIn 0.3s ease;
+    margin-top: 1.25rem;
+  }
+
+  .qa-answer-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--qz-green-bg);
+    border: 1px solid var(--qz-green-border);
+    color: #065f46;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+  }
+
+  .qa-reason-box {
+    background: #fdfaf3;
+    border-left: 4px solid var(--qz-gold);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.98rem;
+    color: var(--qz-text-body);
+    line-height: 1.65;
+  }
+
+  .quiz-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--qz-border);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .btn-quiz-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #ffffff;
+    border: 1px solid var(--qz-border);
+    border-radius: 8px;
+    padding: 0.6rem 1.15rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--qz-text-body);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .btn-quiz-nav:hover:not(:disabled) {
+    border-color: var(--qz-gold-light);
+    color: var(--qz-gold);
+    background: var(--qz-bg-subtle);
+  }
+
+  .btn-quiz-nav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-quiz-next {
+    background: var(--qz-text-heading);
+    color: #ffffff;
+    border-color: var(--qz-text-heading);
+  }
+
+  .btn-quiz-next:hover:not(:disabled) {
+    background: #2b313d;
+    color: #ffffff;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+
+  <!-- Supabase Cloud PostgreSQL Client Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-client.js"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. HEADER / NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      
+      <!-- Logo Lockup -->
+      <a href="/" class="brand-logo" aria-label="PVS Ravindra Varma Home">
+        <img src="/assets/logo.png" alt="PVS Ravindra Varma - Senior HR Leader, Author & Keynote Speaker" width="1302" height="625">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="/" class="nav-link ">Home</a></li>
+          <li class="nav-item"><a href="/pages/about.html" class="nav-link ">About</a></li>
+          <li class="nav-item"><a href="/pages/blogs.html" class="nav-link ">Read</a></li>
+          <li class="nav-item"><a href="/pages/books.html" class="nav-link ">Books</a></li>
+          <li class="nav-item"><a href="/pages/quiz.html" class="nav-link ">Quiz</a></li>
+          <li class="nav-item"><a href="/pages/sitemap.html" class="nav-link ">Explore</a></li>
+          <li class="nav-item"><a href="/pages/contact.html" class="nav-link ">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="header-actions">
+        <!-- Search Button -->
+        <button class="icon-search-btn" id="openSearchBtn" aria-label="Search site" title="Search site (Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Let's Connect CTA Button -->
+        <a href="/pages/contact.html" class="btn btn-gold-pill">
+          <span>Let's Connect</span>
+          <svg class="arrow-icon" viewBox="0 0 20 20" width="15" height="15" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content View -->
+  <main>
+    <section class="quiz-hero-header">
+  <div class="content-wrapper">
+    <span class="quiz-lead-pill">CURATED KNOWLEDGE BANK &bull; PURE LIGHT THEME</span>
+    <h1 class="quiz-page-title">Executive &amp; Cultural Knowledge Center</h1>
+    <p class="quiz-page-subtitle">
+      Test and strengthen your insights across organizational leadership, human potential, Telugu classics, and universal ethics. Select your preferred format below:
+    </p>
+
+    <!-- Dual-Format Selector Pills -->
+    <div class="quiz-format-bar" role="group" aria-label="Quiz format options">
+      <button type="button" class="quiz-format-btn active" id="btnFmtOptions" data-format="options">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4" fill="currentColor"></circle></svg>
+        <span>Option Quiz (MCQ)</span>
+      </button>
+      <button type="button" class="quiz-format-btn" id="btnFmtQA" data-format="qa">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6v1h8v-1c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path></svg>
+        <span>Question, Answer &amp; Reason</span>
+      </button>
+      <button type="button" class="quiz-format-btn" id="btnFmtAll" data-format="all">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span>Complete Bank (<span id="totalBadgeCount">0</span>)</span>
+      </button>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="quiz-cats-bar" id="quizCatFilterBar">
+      <button type="button" class="quiz-cat-pill active" data-cat="all">All Topics</button>
+      <button type="button" class="quiz-cat-pill" data-cat="corporate">Corporate Leadership &amp; HR</button>
+      <button type="button" class="quiz-cat-pill" data-cat="telugu-literature">Telugu Literature &amp; Culture</button>
+      <button type="button" class="quiz-cat-pill" data-cat="science">Science &amp; Ethics</button>
+      <button type="button" class="quiz-cat-pill" data-cat="sports">Sports &amp; General</button>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Strip -->
+<div class="quiz-stats-strip">
+  <div class="stat-badge-group">
+    <div class="stat-badge">
+      <span>Active Mode</span>
+      <strong id="activeModeLabel" style="color:var(--qz-gold);">Option Quiz (MCQ)</strong>
+    </div>
+    <div class="stat-badge">
+      <span>Questions in Pool</span>
+      <strong id="activePoolCount">0</strong>
+    </div>
+    <div class="stat-badge">
+      <span>Score / Correct</span>
+      <strong id="activeScoreDisplay" style="color:var(--qz-green);">0 / 0</strong>
+    </div>
+  </div>
+
+  <button type="button" class="btn-quiz-nav" id="btnResetQuiz" style="font-size:0.78rem; padding:0.35rem 0.75rem; display:inline-flex; align-items:center; gap:0.4rem;">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+    <span>Reset Round</span>
+  </button>
+</div>
+
+<!-- Interactive Quiz Card -->
+<div class="quiz-card-container">
+  <article class="quiz-main-card" id="quizCardStage">
+    
+    <div class="quiz-meta-line">
+      <span class="quiz-tag-type" id="cardFormatBadge" style="display:inline-flex; align-items:center; gap:0.35rem;">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4" fill="currentColor"></circle></svg>
+        <span>Option Quiz</span>
+      </span>
+      <span class="quiz-q-number" id="cardProgressBadge">Question 1 of 10</span>
+    </div>
+
+    <h2 class="quiz-question-title" id="cardQuestionText">
+      Loading curated question...
+    </h2>
+
+    <!-- MCQ Options Container -->
+    <div id="mcqOptionsWrap">
+      <div class="quiz-options-list" id="mcqOptionsList"></div>
+      
+      <div class="quiz-feedback-box" id="mcqFeedbackBox">
+        <div class="quiz-reason-title" id="mcqFeedbackTitle"></div>
+        <p class="quiz-reason-text" id="mcqFeedbackText"></p>
+      </div>
+    </div>
+
+    <!-- Question, Answer & Reason Container -->
+    <div id="qaBoxWrap" style="display:none;" class="qa-mode-box">
+      <button type="button" class="qa-reveal-btn" id="qaRevealBtn">
+        <span>Reveal Verified Answer &amp; Reason &rarr;</span>
+      </button>
+
+      <div class="qa-revealed-card" id="qaRevealedCard">
+        <div class="qa-answer-pill">
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="#10b981"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <span id="qaAnswerText">Verified Answer</span>
+        </div>
+
+        <div class="qa-reason-box">
+          <strong style="color:var(--qz-gold); display:block; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.35rem;">
+            Historical Reason &amp; Detailed Explanation:
+          </strong>
+          <div id="qaReasonText" style="line-height:1.65;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <footer class="quiz-card-footer">
+      <button type="button" class="btn-quiz-nav" id="btnCardPrev" disabled>
+        &larr; Previous Question
+      </button>
+
+      <div style="font-size:0.8rem; color:var(--qz-text-muted); font-family:monospace;" id="cardCategoryIndicator">
+        Topic: General
+      </div>
+
+      <button type="button" class="btn-quiz-nav btn-quiz-next" id="btnCardNext">
+        Next Question &rarr;
+      </button>
+    </footer>
+
+  </article>
+</div>
+
+  </main>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <div class="footer-main-row">
+        <div class="footer-brand-col">
+          <a href="/" class="footer-logo">
+            <img src="/assets/logo.png" alt="PVS Ravindra Varma" width="1302" height="625" loading="lazy">
+          </a>
+          <p class="footer-quote">
+            "Culture is not a poster on the wall. It is the sum of choices your people make when nobody is watching."
+          </p>
+        </div>
+
+        <nav class="footer-links-nav" aria-label="Footer Menu">
+          <a href="/">Home</a>
+          <a href="/pages/about.html">About</a>
+          <a href="/pages/books.html">Books</a>
+          <a href="/pages/blogs.html">Blogs</a>
+          <a href="/pages/videos.html">Videos</a>
+          <a href="/pages/contact.html">Contact</a>
+          <a href="/pages/sitemap.html">Sitemap</a>
+          <a href="/admin/cms.html">Admin Portal</a>
+        </nav>
+
+        <div class="footer-social-icons">
+          <a href="https://linkedin.com/in/ravindravarma" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-copyright-strip">
+        <span>© 2026 PVS Ravindra Varma. All rights reserved.</span>
+        <span class="footer-tagline-quote">People. Ideas. A Better Tomorrow.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODALS
+       ========================================================================= -->
+
+  <!-- Search Modal -->
+  <dialog class="app-dialog search-dialog" id="searchModal" aria-labelledby="searchTitle">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <div class="search-input-wrapper">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="siteSearchInput" placeholder="Search books, blogs, videos, pillars..." aria-label="Search content">
+          <kbd class="kbd-shortcut">ESC</kbd>
+        </div>
+        <button class="dialog-close-btn" id="closeSearchModal" aria-label="Close search">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="search-results-list" id="searchResultsList">
+          <div class="search-hint">Type keywords like <em>"Growth Mindset"</em>, <em>"Culture"</em>, <em>"Future of Work"</em>...</div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Video Modal -->
+  <dialog class="app-dialog video-modal" id="videoModal" aria-labelledby="videoModalTitle">
+    <div class="dialog-card video-card-wrapper">
+      <button class="dialog-close-btn video-close-btn" id="closeVideoModalBtn" aria-label="Close video player">✕</button>
+      <div class="video-player-container">
+        <div class="simulated-video-screen" id="videoScreen">
+          <div class="video-overlay-banner">
+            <h3 id="videoModalTitle">The Future of Work</h3>
+            <span class="video-speaker-tag">PVS Ravindra Varma — Keynote Address</span>
+          </div>
+          <div class="video-center-indicator" id="videoPlayingState">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="#ffffff" opacity="0.9">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="video-custom-controls">
+          <button class="video-ctrl-btn" id="videoPlayPauseBtn" aria-label="Play / Pause">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+          </button>
+          <div class="video-progress-bar-wrap" id="videoProgressWrap">
+            <div class="video-progress-fill" id="videoProgressFill"></div>
+          </div>
+          <span class="video-timer-display" id="videoTimeDisplay">04:15 / 12:34</span>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Book Synopsis Modal -->
+  <dialog class="app-dialog book-modal" id="bookModal" aria-labelledby="bookModalTitle">
+    <div class="dialog-card book-modal-card">
+      <div class="dialog-header">
+        <h3 id="bookModalTitle" class="dialog-title-serif">Book Overview</h3>
+        <button class="dialog-close-btn" id="closeBookModalBtn" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body" id="bookModalBody">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Quick Bio Modal -->
+  <dialog class="app-dialog about-modal" id="aboutModal" aria-labelledby="aboutModalTitle">
+    <div class="dialog-card about-modal-card">
+      <div class="dialog-header">
+        <h3 id="aboutModalTitle" class="dialog-title-serif">PVS Ravindra Varma — Executive Biography</h3>
+        <button class="dialog-close-btn" id="closeAboutModalBtn" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="dialog-body">
+        <p>With over two and a half decades in strategic human resources, executive coaching, and organizational design, Mr. PVS Ravindra Varma has advised leading corporations, high-growth startups, and social impact institutions across India and globally.</p>
+        <p>His published works focus on human-centric workplaces, empathetic governance, and systemic resilience.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Blog Reader Modal -->
+  <dialog class="app-dialog blog-modal" id="blogModal" aria-labelledby="blogModalTitle">
+    <div class="dialog-card blog-modal-card">
+      <div class="dialog-header">
+        <h3 id="blogModalTitle" class="dialog-title-serif">Article Overview</h3>
+        <button class="dialog-close-btn" id="closeBlogModalBtn" aria-label="Close article">✕</button>
+      </div>
+      <div class="dialog-body" id="blogModalBody">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- JavaScript -->
+  <script src="/js/app.js"></script>
+  <script src="/content/registry.js"></script>
+  <script src="/js/platform.js"></script>
+  <script src="/js/content-bridge.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    const DEFAULT_QUESTIONS = [
+      {
+        id: 'corp-001',
+        format: 'options',
+        category: 'corporate',
+        q: "In high-performing teams, what is the single most critical cultural foundation identified in organizational psychology?",
+        options: [
+          "Strict adherence to top-down hierarchical reporting",
+          "Psychological safety and radical mutual trust",
+          "Competitive individual bonus structures",
+          "Continuous automated surveillance metrics"
+        ],
+        answer: 1,
+        explain: "Psychological safety—the shared belief that team members will not be embarrassed, rejected, or punished for speaking up with ideas, questions, or mistakes—is the foundational prerequisite for innovation and retention."
+      },
+      {
+        id: 'qa-001',
+        format: 'qa',
+        category: 'corporate',
+        q: "Why is the foundational leadership tenet 'People Before Process' essential for sustainable organizational scale?",
+        answer: "Because empowered human talent and high-trust culture outperform rigid bureaucratic compliance when navigating market uncertainty.",
+        explain: "Processes are static tools designed for past operating conditions, whereas agile people possess the emotional intelligence, creative problem-solving, and adaptability necessary to innovate during volatile market pivots."
+      },
+      {
+        id: 'telugu-001',
+        format: 'options',
+        category: 'telugu-literature',
+        q: "Which revered poet is celebrated as 'Adi Kavi' (the First Poet) in classical Telugu literature for commencing the Andhra Mahabharatam?",
+        options: [
+          "Tikkana Somayaji",
+          "Errana (Yerrapragada)",
+          "Nannaya Bhattaraka",
+          "Potana"
+        ],
+        answer: 2,
+        explain: "Nannaya Bhattaraka (11th century CE) initiated the monumental translation of the Sanskrit Mahabharata into Telugu, translating the Adi, Sabha, and half of Aranya Parvas, and is honored as 'Adi Kavi'."
+      },
+      {
+        id: 'qa-002',
+        format: 'qa',
+        category: 'telugu-literature',
+        q: "Who was the first Telugu author to be conferred the highest Indian literary honor, the Jnanpith Award?",
+        answer: "Kavi Samrat Viswanatha Satyanarayana (1970)",
+        explain: "Viswanatha Satyanarayana received the Jnanpith Award in 1970 for his magnum opus 'Ramayana Kalpavrukshamu', marking a historic milestone for classical and modern Telugu letters."
+      },
+      {
+        id: 'science-001',
+        format: 'options',
+        category: 'science',
+        q: "What is the Latin etymology of the chemical symbol for Gold (Au)?",
+        options: [
+          "Argentum, meaning silver mirror",
+          "Aurum, meaning shining dawn",
+          "Australis, meaning southern wind",
+          "Audentia, meaning daring courage"
+        ],
+        answer: 1,
+        explain: "The symbol Au derives directly from the Latin word 'aurum', historically signifying 'shining dawn', which poignantly described the radiant luminescence of natural gold."
+      },
+      {
+        id: 'qa-003',
+        format: 'qa',
+        category: 'science',
+        q: "What are the core ethical principles encapsulated in the Rotary Four-Way Test for executive decision-making?",
+        answer: "Truth, Fairness to all, Goodwill & Friendships, Beneficial to all concerned.",
+        explain: "Created by Herbert J. Taylor in 1932, the Four-Way Test serves as an enduring universal benchmark for ethical governance, boardroom candor, and social responsibility across global enterprises."
+      },
+      {
+        id: 'sports-001',
+        format: 'options',
+        category: 'sports',
+        q: "In competitive tennis scoring, what is the historical origin of the score term 'Love' for zero?",
+        options: [
+          "The British word 'Lovely', meaning pure beginning",
+          "The French word 'l'œuf' (the egg), symbolizing the round shape of zero",
+          "The Latin word 'Lubrico', meaning slippery score",
+          "The Dutch word 'Lof', meaning initial honor"
+        ],
+        answer: 1,
+        explain: "Historians trace the term 'love' in tennis scoring to the French phrase 'l'œuf', meaning 'the egg', due to the physical visual resemblance between an egg and the number 0."
+      }
+    ];
+
+     && $questions->count() > 0)
+    let serverData = [];
+    let allQuestions = (Array.isArray(serverData) && serverData.length > 0) ? serverData : DEFAULT_QUESTIONS;
+    
+    let rawStored = JSON.parse(localStorage.getItem('pvsrv_cms_quiz_questions') || 'null');
+    let allQuestions = (Array.isArray(rawStored) && rawStored.length > 0) ? rawStored : DEFAULT_QUESTIONS;
+    
+
+    const totalBadge = document.getElementById('totalBadgeCount');
+    if (totalBadge) totalBadge.textContent = allQuestions.length;
+
+    let activeFormat = 'options';
+    let activeCategory = 'all';
+    let filteredQuestions = [];
+    let currentIndex = 0;
+    let scoreCorrect = 0;
+    let scoreAttempts = 0;
+    let answeredMap = {};
+
+    function filterQuestions() {
+      filteredQuestions = allQuestions.filter(q => {
+        const isQA = q.format === 'qa' || !Array.isArray(q.options) || !q.options.length;
+        const matchFmt = (activeFormat === 'all') || (activeFormat === 'qa' && isQA) || (activeFormat === 'options' && !isQA);
+        const matchCat = (activeCategory === 'all') || (q.category === activeCategory);
+        return matchFmt && matchCat;
+      });
+
+      if (filteredQuestions.length === 0) {
+        filteredQuestions = allQuestions.filter(q => {
+          const isQA = q.format === 'qa' || !Array.isArray(q.options) || !q.options.length;
+          return (activeFormat === 'all') || (activeFormat === 'qa' && isQA) || (activeFormat === 'options' && !isQA);
+        });
+      }
+
+      currentIndex = 0;
+      updateStats();
+      renderCard();
+    }
+
+    function updateStats() {
+      const poolCount = document.getElementById('activePoolCount');
+      const scoreDisplay = document.getElementById('activeScoreDisplay');
+      const modeLabel = document.getElementById('activeModeLabel');
+
+      if (poolCount) poolCount.textContent = `${filteredQuestions.length} Questions`;
+      if (scoreDisplay) scoreDisplay.textContent = `${scoreCorrect} / ${scoreAttempts}`;
+      if (modeLabel) {
+        if (activeFormat === 'options') modeLabel.textContent = 'Option Quiz (MCQ)';
+        else if (activeFormat === 'qa') modeLabel.textContent = 'Question, Answer & Reason';
+        else modeLabel.textContent = 'Complete Knowledge Bank';
+      }
+    }
+
+    function renderCard() {
+      if (!filteredQuestions.length) return;
+
+      const item = filteredQuestions[currentIndex];
+      const isQA = item.format === 'qa' || !Array.isArray(item.options) || !item.options.length;
+
+      const formatBadge = document.getElementById('cardFormatBadge');
+      if (formatBadge) {
+        formatBadge.innerHTML = isQA
+          ? '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6v1h8v-1c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path></svg><span>Question, Answer &amp; Reason</span>'
+          : '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4" fill="currentColor"></circle></svg><span>Option Quiz (MCQ)</span>';
+      }
+      document.getElementById('cardProgressBadge').textContent = `Question ${currentIndex + 1} of ${filteredQuestions.length}`;
+      document.getElementById('cardQuestionText').textContent = item.q;
+      document.getElementById('cardCategoryIndicator').textContent = `Topic: ${formatCatName(item.category)}`;
+
+      document.getElementById('btnCardPrev').disabled = (currentIndex === 0);
+      document.getElementById('btnCardNext').disabled = (currentIndex >= filteredQuestions.length - 1);
+
+      const mcqWrap = document.getElementById('mcqOptionsWrap');
+      const qaWrap = document.getElementById('qaBoxWrap');
+
+      if (!isQA) {
+        mcqWrap.style.display = 'block';
+        qaWrap.style.display = 'none';
+
+        const optList = document.getElementById('mcqOptionsList');
+        const fbBox = document.getElementById('mcqFeedbackBox');
+        fbBox.style.display = 'none';
+        optList.innerHTML = '';
+
+        item.options.forEach((optText, optIdx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'quiz-opt-btn';
+          btn.innerHTML = `
+            <span class="quiz-opt-letter">${'ABCD'[optIdx]}</span>
+            <span style="flex:1;">${optText}</span>
+          `;
+
+          btn.addEventListener('click', () => {
+            if (answeredMap[currentIndex]) return;
+            answeredMap[currentIndex] = true;
+            scoreAttempts++;
+
+            const isCorrect = (optIdx === item.answer);
+            if (isCorrect) scoreCorrect++;
+
+            optList.querySelectorAll('.quiz-opt-btn').forEach((b, bIdx) => {
+              b.disabled = true;
+              if (bIdx === item.answer) {
+                b.classList.add('correct');
+              } else if (bIdx === optIdx && !isCorrect) {
+                b.classList.add('wrong');
+              }
+            });
+
+            fbBox.style.display = 'block';
+            fbBox.className = 'quiz-feedback-box ' + (isCorrect ? 'correct' : 'wrong');
+            document.getElementById('mcqFeedbackTitle').innerHTML = isCorrect
+              ? '<span style="display:inline-flex; align-items:center; gap:0.4rem;"><svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Correct Answer!</span>'
+              : `<span style="display:inline-flex; align-items:center; gap:0.4rem;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>Verified Key: Option ${'ABCD'[item.answer]}</span>`;
+            document.getElementById('mcqFeedbackText').innerHTML = `<strong>Reason &amp; Strategic Context:</strong> ${item.explain || 'Authoritative verified leadership and domain knowledge context.'}`;
+
+            updateStats();
+          });
+
+          optList.appendChild(btn);
+        });
+
+      } else {
+        mcqWrap.style.display = 'none';
+        qaWrap.style.display = 'block';
+
+        const revealBtn = document.getElementById('qaRevealBtn');
+        const revealedCard = document.getElementById('qaRevealedCard');
+        revealBtn.style.display = 'inline-flex';
+        revealedCard.style.display = 'none';
+
+        document.getElementById('qaAnswerText').textContent = item.answer || 'Verified Answer';
+        document.getElementById('qaReasonText').textContent = item.explain || 'In-depth conceptual reason and context.';
+
+        revealBtn.onclick = () => {
+          revealBtn.style.display = 'none';
+          revealedCard.style.display = 'block';
+          if (!answeredMap[currentIndex]) {
+            answeredMap[currentIndex] = true;
+            scoreAttempts++;
+            scoreCorrect++;
+            updateStats();
+          }
+        };
+      }
+    }
+
+    function formatCatName(cat) {
+      if (!cat) return 'General';
+      return cat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+
+    const btnFmtOptions = document.getElementById('btnFmtOptions');
+    const btnFmtQA = document.getElementById('btnFmtQA');
+    const btnFmtAll = document.getElementById('btnFmtAll');
+
+    function setFormat(fmt) {
+      activeFormat = fmt;
+      [btnFmtOptions, btnFmtQA, btnFmtAll].forEach(b => b.classList.remove('active'));
+      if (fmt === 'options') btnFmtOptions.classList.add('active');
+      else if (fmt === 'qa') btnFmtQA.classList.add('active');
+      else btnFmtAll.classList.add('active');
+      filterQuestions();
+    }
+
+    btnFmtOptions.addEventListener('click', () => setFormat('options'));
+    btnFmtQA.addEventListener('click', () => setFormat('qa'));
+    btnFmtAll.addEventListener('click', () => setFormat('all'));
+
+    document.querySelectorAll('#quizCatFilterBar .quiz-cat-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('#quizCatFilterBar .quiz-cat-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        activeCategory = pill.dataset.cat;
+        filterQuestions();
+      });
+    });
+
+    document.getElementById('btnCardNext').addEventListener('click', () => {
+      if (currentIndex < filteredQuestions.length - 1) {
+        currentIndex++;
+        renderCard();
+      }
+    });
+
+    document.getElementById('btnCardPrev').addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderCard();
+      }
+    });
+
+    document.getElementById('btnResetQuiz').addEventListener('click', () => {
+      scoreCorrect = 0;
+      scoreAttempts = 0;
+      answeredMap = {};
+      currentIndex = 0;
+      updateStats();
+      renderCard();
+    });
+
+    filterQuestions();
+  })();
+</script>
+
+</body>
+</html>
+

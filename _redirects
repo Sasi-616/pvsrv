@@ -1,0 +1,10 @@
+/about        /pages/about.html   200
+/books        /pages/books.html   200
+/reader       /pages/reader.html  200
+/blogs        /pages/blogs.html   200
+/quiz         /pages/quiz.html    200
+/contact      /pages/contact.html 200
+/videos       /pages/videos.html  200
+/sitemap      /pages/sitemap.html 200
+/admin        /admin/cms.html     200
+/admin/login  /admin/admin-login.html 200
