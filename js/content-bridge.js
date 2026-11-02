@@ -334,40 +334,79 @@
       });
     },
 
-    // D. Render latest CMS articles on Homepage (index.html)
+    // D. Render latest CMS articles on Homepage (index.html) & Blogs Page (pages/blogs.html)
     syncHomeArticles: function () {
-      const container = document.querySelector('.blogs-grid-triad');
-      if (!container) return;
+      const homeContainer = document.querySelector('.blogs-grid-triad');
+      const blogsArchive = document.querySelector('.blogs-triad-grid') || document.getElementById('blogsArchive');
 
       const articles = this.getArticles();
       if (!articles || articles.length === 0) return;
 
-      // Display up to 2 newest articles from CMS at the top of the blog grid
-      articles.slice(0, 2).forEach((art, i) => {
-        if (container.querySelector(`[data-dyn-art="${art.id}"]`)) return;
+      if (homeContainer) {
+        articles.slice(0, 2).forEach((art) => {
+          if (homeContainer.querySelector(`[data-dyn-art="${art.id}"]`)) return;
 
-        const card = document.createElement('div');
-        card.className = 'blog-card dynamic-cms-article';
-        card.setAttribute('data-dyn-art', art.id);
+          const card = document.createElement('div');
+          card.className = 'blog-card dynamic-cms-article';
+          card.setAttribute('data-dyn-art', art.id);
 
-        card.innerHTML = `
-          <div class="blog-img-box" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center;">
-            <img src="assets/blogs/growth-mindset.jpg" alt="${art.title}" class="blog-cover-img" width="600" height="340" loading="lazy">
-          </div>
-          <div class="blog-details">
-            <span class="blog-publish-date" style="color:var(--gold, #966e36); font-weight:700;">${art.date || 'NEW PUBLICATION'}</span>
-            <h3 class="blog-article-title">${art.title}</h3>
-            <p class="blog-brief-summary">${art.summary || (art.content ? art.content.replace(/<[^>]*>?/gm, '').slice(0, 110) + '...' : '')}</p>
-            <button class="link-read-more" onclick="openBlogArticleModal('${art.id}')">
-              <span>Read More</span>
-              <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor">
-                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
-            </button>
-          </div>
-        `;
-        container.prepend(card);
-      });
+          card.innerHTML = `
+            <div class="blog-img-box" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center;">
+              <img src="${formatPath(art.cover_img || art.image || 'assets/blogs/growth-mindset.jpg')}" alt="${art.title}" class="blog-cover-img" width="600" height="340" loading="lazy">
+            </div>
+            <div class="blog-details">
+              <span class="blog-publish-date" style="color:var(--gold, #966e36); font-weight:700;">${art.date || 'NEW PUBLICATION'}</span>
+              <h3 class="blog-article-title">${art.title}</h3>
+              <p class="blog-brief-summary">${art.summary || (art.content ? art.content.replace(/<[^>]*>?/gm, '').slice(0, 110) + '...' : '')}</p>
+              <button class="link-read-more" onclick="openBlogArticleModal('${art.id}')">
+                <span>Read More</span>
+                <svg viewBox="0 0 20 20" width="14" height="14" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+          `;
+          homeContainer.prepend(card);
+        });
+      }
+
+      if (blogsArchive) {
+        articles.forEach((art) => {
+          if (blogsArchive.querySelector(`[data-dyn-art="${art.id}"]`)) return;
+
+          const card = document.createElement('article');
+          card.className = 'blog-card-compact dynamic-cms-article';
+          card.setAttribute('data-dyn-art', art.id);
+          card.style.cssText = 'background:#ffffff; border:1px solid rgba(226,232,240,0.8); border-radius:12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.03); display:flex; flex-direction:column;';
+
+          card.innerHTML = `
+            <div style="height:190px; overflow:hidden; position:relative;">
+              <img src="${formatPath(art.cover_img || art.image || 'assets/blogs/growth-mindset.jpg')}" alt="${art.title}" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+              <span style="position:absolute; top:12px; left:12px; background:#caa05b; color:#fff; font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px; text-transform:uppercase;">
+                ${art.category || 'INSIGHTS'}
+              </span>
+            </div>
+            <div style="padding:1.5rem; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="font-size:0.8rem; color:#8492a6; margin-bottom:0.5rem;">
+                  ${art.read_time || '5 Min Read'} • ${art.date || 'Recent'}
+                </div>
+                <h3 style="font-family:'Playfair Display', serif; font-size:1.25rem; line-height:1.35; margin-bottom:0.75rem;">
+                  <a href="javascript:void(0)" onclick="openBlogArticleModal('${art.id}')" style="color:#0f172a; text-decoration:none;">${art.title}</a>
+                </h3>
+                <p style="font-size:0.9rem; color:#475569; line-height:1.55; margin-bottom:1.25rem;">
+                  ${art.summary || (art.content ? art.content.replace(/<[^>]*>?/gm, '').slice(0, 120) + '...' : '')}
+                </p>
+              </div>
+              <button type="button" onclick="openBlogArticleModal('${art.id}')" style="background:none; border:none; padding:0; cursor:pointer; color:#caa05b; font-weight:700; font-size:0.85rem; display:inline-flex; align-items:center; gap:0.4rem; text-align:left;">
+                <span>Read Essay</span>
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+              </button>
+            </div>
+          `;
+          blogsArchive.prepend(card);
+        });
+      }
     },
 
     // E. Fetch remote content from Supabase PostgreSQL Database / Edge API
@@ -464,13 +503,26 @@
         };
 
         try {
+          // Always cache in both storage keys for CMS instant display
+          let inqs = [];
+          try {
+            inqs = JSON.parse(localStorage.getItem('pvsrv_cms_inquiries') || localStorage.getItem('pvsrv_inquiries') || '[]');
+          } catch(e) { inqs = []; }
+          inqs.unshift(inquiryData);
+          localStorage.setItem('pvsrv_inquiries', JSON.stringify(inqs));
+          localStorage.setItem('pvsrv_cms_inquiries', JSON.stringify(inqs));
+
+          // Also try Vercel serverless /api/inquiries endpoint in background
+          if (typeof fetch === 'function' && window.location.protocol.startsWith('http')) {
+            fetch('/api/inquiries', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(inquiryData)
+            }).catch(() => {});
+          }
+
           if (window.PVS_Supabase && typeof window.PVS_Supabase.submitInquiry === 'function') {
             await window.PVS_Supabase.submitInquiry(inquiryData);
-          } else {
-            // Local fallback
-            let inqs = JSON.parse(localStorage.getItem('pvsrv_inquiries') || '[]');
-            inqs.unshift(inquiryData);
-            localStorage.setItem('pvsrv_inquiries', JSON.stringify(inqs));
           }
 
           // Show success message

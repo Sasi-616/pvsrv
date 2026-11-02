@@ -101,6 +101,7 @@ const SEED_ARTICLES = [
     summary: 'Established enterprises frequently fall into the trap of process calcification. When previous successes become gospel, intellectual curiosity suffocates.',
     body: '<p>Established enterprises frequently fall into the trap of process calcification. When previous successes become gospel, intellectual curiosity suffocates.</p>',
     views: 450,
+    status: 'published',
     published_at: '2026-08-15'
   }
 ];

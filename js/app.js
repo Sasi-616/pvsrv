@@ -410,7 +410,22 @@ window.openExcerptModal = function(bookTitle) {
   const modal = document.getElementById('excerptModal') || document.getElementById('bookModal');
   const modalTitle = document.getElementById('excerptModalTitle') || document.getElementById('bookModalTitle');
   const modalBody = document.getElementById('excerptModalBody') || document.getElementById('bookModalBody');
-  const book = BOOKS_OUTLINES[bookTitle] || BOOKS_OUTLINES['People Before Process'];
+
+  let dynamicBook = null;
+  if (window.PVS_Bridge && typeof window.PVS_Bridge.getBooks === 'function') {
+    dynamicBook = window.PVS_Bridge.getBooks().find(b => 
+      (b.title && b.title.toLowerCase() === (bookTitle || '').toLowerCase()) || 
+      b.id === bookTitle || 
+      b.slug === bookTitle
+    );
+  }
+
+  const book = dynamicBook ? {
+    subtitle: dynamicBook.subtitle || dynamicBook.category || 'Executive Manuscript',
+    pages: dynamicBook.pages || '240 Pages',
+    chapters: Array.isArray(dynamicBook.chapters) ? dynamicBook.chapters : (typeof dynamicBook.chapters === 'string' ? dynamicBook.chapters.split('\n').filter(Boolean) : ['Chapter 1: Foundational Frameworks', 'Chapter 2: Organizational Scaling', 'Chapter 3: Cultural Resilience']),
+    synopsis: dynamicBook.synopsis || 'An executive exploration into transformative leadership and high-performance workplaces.'
+  } : (BOOKS_OUTLINES[bookTitle] || BOOKS_OUTLINES['People Before Process']);
 
   if (!modal || !modalBody) return;
 
@@ -538,7 +553,21 @@ const BLOG_ARTICLES = {
 window.openBlogArticleModal = function(articleId) {
   const modal = document.getElementById('blogModal');
   if (!modal) return;
-  const article = BLOG_ARTICLES[articleId] || BLOG_ARTICLES['growth-mindset'];
+
+  let dynamicArt = null;
+  if (window.PVS_Bridge && typeof window.PVS_Bridge.getArticles === 'function') {
+    dynamicArt = window.PVS_Bridge.getArticles().find(a => a.id === articleId || a.slug === articleId);
+  }
+
+  const article = dynamicArt ? {
+    title: dynamicArt.title,
+    category: dynamicArt.category || 'Executive Insights',
+    readTime: dynamicArt.read_time || '5 Min Read',
+    date: dynamicArt.date || 'Recent Publication',
+    image: dynamicArt.cover_img || dynamicArt.image || 'assets/blogs/growth-mindset.jpg',
+    content: dynamicArt.body || dynamicArt.content || `<p>${dynamicArt.summary || 'Executive thought leadership essay by Mr. PVS Ravindra Varma.'}</p>`
+  } : (BLOG_ARTICLES[articleId] || BLOG_ARTICLES['growth-mindset']);
+
   const modalTitle = document.getElementById('blogModalTitle');
   if (modalTitle) modalTitle.textContent = article.title;
 

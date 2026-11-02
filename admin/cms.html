@@ -2555,7 +2555,7 @@
               <span class="table-item-slug">content/${item.section || 'blogs'}/${item.category}.js &bull; id: ${item.id}</span>
             </td>
             <td><span class="badge-category">${formatCategoryName(item.category)}</span></td>
-            <td><span class="badge-status ${item.status}">${item.status.toUpperCase()}</span></td>
+            <td><span class="badge-status ${item.status || 'published'}">${(item.status || 'published').toUpperCase()}</span></td>
             <td style="font-size:0.8rem; color:var(--text-dim);">${item.date}</td>
             <td style="text-align: right;">
               <div class="table-actions" style="justify-content: flex-end;">
@@ -2671,7 +2671,15 @@
       }
 
       // 5. ARTICLES TABLE RENDERING & FILTERING
+      window.renderArticlesTable = renderArticlesTable;
       function renderArticlesTable() {
+        try {
+          const stored = localStorage.getItem('pvsrv_cms_articles');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) articles = parsed;
+          }
+        } catch(e) {}
         const tbody = document.getElementById('articlesTableBody');
         tbody.innerHTML = '';
 
@@ -2701,7 +2709,7 @@
             <td><span class="badge-category">${formatCategoryName(item.category)}</span></td>
             <td style="font-size:0.82rem; color:var(--text-muted);">${item.author || 'PVS Ravindra Varma'}</td>
             <td style="font-size:0.82rem; color:var(--text-dim);">${item.readTime || '5 min read'}</td>
-            <td><span class="badge-status ${item.status}">${item.status.toUpperCase()}</span></td>
+            <td><span class="badge-status ${item.status || 'published'}">${(item.status || 'published').toUpperCase()}</span></td>
             <td style="font-size:0.8rem; color:var(--text-dim);">${item.date}</td>
             <td style="text-align: right;">
               <div class="table-actions" style="justify-content: flex-end;">
@@ -4982,12 +4990,22 @@ ${body.trim()}
             summary: 'An executive exploration into empathy-driven leadership, psychological safety, and sustainable organizational growth in high-pressure markets.',
             content: '<p>True leadership is not tested in calm waters, but in moments of fundamental disruption. When organizations face rapid market changes, the impulse of many executives is to centralize control. However, data and experience demonstrate that decentralized trust coupled with radical transparency yields vastly superior resilience.</p><p>By prioritizing psychological safety and transparent decision-making frameworks, leadership teams cultivate high-ownership cultures where innovation thrives effortlessly.</p>'
           };
-          articles.unshift(sampleArt);
-          saveArticles();
-          renderArticlesTable();
-          updateDashboardMetrics();
-          showToast('Sample article published live! Switched to Articles view.', 'success');
-          switchTab('articles');
+          let curArts = JSON.parse(localStorage.getItem('pvsrv_cms_articles') || '[]');
+          curArts.unshift(sampleArt);
+          localStorage.setItem('pvsrv_cms_articles', JSON.stringify(curArts));
+          localStorage.setItem('pvsrv_articles', JSON.stringify(curArts));
+          if (window.PVS_Bridge && typeof window.PVS_Bridge.saveArticle === 'function') {
+            window.PVS_Bridge.saveArticle(sampleArt);
+          }
+          if (typeof window.switchTab === 'function') {
+            window.switchTab('articles');
+          }
+          if (typeof window.renderArticlesTable === 'function') {
+            window.renderArticlesTable();
+          }
+          if (typeof showToast === 'function') {
+            showToast('Sample article published live! Switched to Articles view.', 'success');
+          }
         });
       }
 
@@ -5095,6 +5113,47 @@ ${body.trim()}
           reader.readAsText(file);
         });
       }
+
+  
+      // 7. Real-Time Inquiries & Content Synchronization
+      window.addEventListener('pvs_inquiry_received', (e) => {
+        const inq = e.detail;
+        try {
+          inquiries = JSON.parse(localStorage.getItem('pvsrv_cms_inquiries') || localStorage.getItem('pvsrv_inquiries') || '[]');
+        } catch(err) {}
+        if (typeof renderInbox === 'function') renderInbox();
+        if (typeof renderDashboard === 'function') renderDashboard();
+        if (typeof showToast === 'function' && inq && inq.name) {
+          showToast(`🔔 New Advisory Inquiry from ${inq.name}!`, 'gold');
+        }
+      });
+
+      window.addEventListener('pvs_content_updated', () => {
+        try {
+          booksCatalog = JSON.parse(localStorage.getItem('pvsrv_books_catalog') || localStorage.getItem('pvsrv_books') || '[]');
+          articles = JSON.parse(localStorage.getItem('pvsrv_cms_articles') || localStorage.getItem('pvsrv_articles') || '[]');
+        } catch(err) {}
+        if (typeof renderBooksGrid === 'function') renderBooksGrid();
+        if (typeof renderArticlesTable === 'function') renderArticlesTable();
+        if (typeof renderDashboard === 'function') renderDashboard();
+      });
+
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'pvsrv_cms_inquiries' || e.key === 'pvsrv_inquiries') {
+          try {
+            inquiries = JSON.parse(localStorage.getItem('pvsrv_cms_inquiries') || localStorage.getItem('pvsrv_inquiries') || '[]');
+            if (typeof renderInbox === 'function') renderInbox();
+            if (typeof renderDashboard === 'function') renderDashboard();
+          } catch(err) {}
+        }
+        if (e.key === 'pvsrv_books' || e.key === 'pvsrv_books_catalog') {
+          try {
+            booksCatalog = JSON.parse(localStorage.getItem('pvsrv_books_catalog') || localStorage.getItem('pvsrv_books') || '[]');
+            if (typeof renderBooksGrid === 'function') renderBooksGrid();
+            if (typeof renderDashboard === 'function') renderDashboard();
+          } catch(err) {}
+        }
+      });
 
   </script>
 
