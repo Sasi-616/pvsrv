@@ -1939,7 +1939,7 @@
           
           <div style="display:flex; gap:1.25rem; align-items:flex-start;">
             <div style="width:72px; height:98px; background:#ffffff; border:1px solid #cbd5e1; border-radius:4px; overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,0.08);">
-              <img id="editPdfCoverPreview" src="../assets/books/culture-that-lasts.png" alt="Cover Preview" style="width:100%; height:100%; object-fit:cover;">
+              <img id="editPdfCoverPreview" src="/assets/books/culture-that-lasts.png" alt="Cover Preview" style="width:100%; height:100%; object-fit:cover;">
             </div>
 
             <div style="flex:1;">
@@ -2060,7 +2060,7 @@
 
           <div style="display:flex; gap:1.25rem; align-items:flex-start;">
             <div style="width:78px; height:110px; background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 10px rgba(0,0,0,0.08);">
-              <img id="bookCoverPreviewImg" src="../assets/books/culture-that-lasts.png" alt="Cover Preview" style="width:100%; height:100%; object-fit:cover;">
+              <img id="bookCoverPreviewImg" src="/assets/books/culture-that-lasts.png" alt="Cover Preview" style="width:100%; height:100%; object-fit:cover;">
             </div>
 
             <div style="flex:1;">
@@ -2076,9 +2076,9 @@
               </div>
 
               <div>
-                <input type="text" id="bookCoverUrlInput" class="admin-input" placeholder="Or enter image path (e.g. ../assets/books/human-advantage.png)" style="font-size:0.8rem; padding:0.45rem 0.75rem;">
+                <input type="text" id="bookCoverUrlInput" class="admin-input" placeholder="Or enter image path (e.g. /assets/books/human-advantage.png)" style="font-size:0.8rem; padding:0.45rem 0.75rem;">
               </div>
-              <input type="hidden" id="bookCoverData" value="../assets/books/culture-that-lasts.png">
+              <input type="hidden" id="bookCoverData" value="/assets/books/culture-that-lasts.png">
             </div>
           </div>
         </div>
@@ -3286,7 +3286,7 @@ ${body.trim()}
         {
           id: 'media-1',
           title: 'growth-mindset.jpg',
-          path: '../assets/blogs/growth-mindset.jpg',
+          path: '/assets/blogs/growth-mindset.jpg',
           category: 'Blog Cover',
           dimensions: '1200 x 800',
           size: '142 KB',
@@ -3295,7 +3295,7 @@ ${body.trim()}
         {
           id: 'media-2',
           title: 'leadership-changing-world.jpg',
-          path: '../assets/blogs/leadership-changing-world.jpg',
+          path: '/assets/blogs/leadership-changing-world.jpg',
           category: 'Blog Cover',
           dimensions: '1200 x 800',
           size: '168 KB',
@@ -3304,7 +3304,7 @@ ${body.trim()}
         {
           id: 'media-3',
           title: 'culture-that-lasts.png',
-          path: '../assets/books/culture-that-lasts.png',
+          path: '/assets/books/culture-that-lasts.png',
           category: 'Book Artwork',
           dimensions: '800 x 1200',
           size: '320 KB',
@@ -3313,7 +3313,7 @@ ${body.trim()}
         {
           id: 'media-4',
           title: 'human-advantage.png',
-          path: '../assets/books/human-advantage.png',
+          path: '/assets/books/human-advantage.png',
           category: 'Book Artwork',
           dimensions: '800 x 1200',
           size: '295 KB',
@@ -3492,7 +3492,7 @@ ${body.trim()}
 
       imageUrlInput?.addEventListener('input', (e) => {
         const val = e.target.value.trim();
-        if (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('../assets/')) {
+        if (val.startsWith('http://') || val.startsWith('https://') || val.startsWith('/assets/')) {
           imageUrlPreviewImg.src = val;
           imageUrlPreviewImg.style.opacity = '1';
         } else {
@@ -3551,7 +3551,7 @@ ${body.trim()}
           status: 'published',
           classification: 'Full Book Manuscript',
           presetKey: 'people-before-process',
-          coverImg: '../assets/books/culture-that-lasts.png'
+          coverImg: '/assets/books/culture-that-lasts.png'
         },
         {
           id: 'pdf-culture-that-lasts',
@@ -3565,7 +3565,7 @@ ${body.trim()}
           status: 'published',
           classification: 'Executive Whitepaper',
           presetKey: 'culture-that-lasts',
-          coverImg: '../assets/books/culture-that-lasts.png'
+          coverImg: '/assets/books/culture-that-lasts.png'
         },
         {
           id: 'pdf-human-advantage',
@@ -3579,7 +3579,7 @@ ${body.trim()}
           status: 'published',
           classification: 'Special Monograph',
           presetKey: 'human-advantage',
-          coverImg: '../assets/books/human-advantage.png'
+          coverImg: '/assets/books/human-advantage.png'
         }
       ];
 
@@ -3630,7 +3630,7 @@ ${body.trim()}
           card.innerHTML = `
             <div class="pdf-cover-container">
               <span class="pdf-type-badge">${pdf.classification || 'Manuscript'}</span>
-              <img src="${pdf.coverImg || '../assets/books/culture-that-lasts.png'}" alt="${pdf.title}" class="pdf-cover-img" onerror="this.src='../assets/books/culture-that-lasts.png'">
+              <img src="${pdf.coverImg || '/assets/books/culture-that-lasts.png'}" alt="${pdf.title}" class="pdf-cover-img" onerror="this.src='/assets/books/culture-that-lasts.png'">
               <span class="pdf-pages-badge">${pdf.pages} Pages</span>
             </div>
 
@@ -3802,7 +3802,7 @@ ${body.trim()}
           date: 'Today',
           status: 'published',
           classification: numPages > 20 ? 'Full Manuscript' : 'Executive Whitepaper',
-          coverImg: '../assets/books/culture-that-lasts.png',
+          coverImg: '/assets/books/culture-that-lasts.png',
           filename: file.name
         };
         uploadedPdfs.unshift(newDoc);
@@ -3879,7 +3879,7 @@ ${body.trim()}
         const coverData = document.getElementById('editPdfCoverData');
         const coverUrlInput = document.getElementById('editPdfCoverUrlInput');
 
-        const currentCover = pdf.coverImg || '../assets/books/culture-that-lasts.png';
+        const currentCover = pdf.coverImg || '/assets/books/culture-that-lasts.png';
         if (coverPreview) coverPreview.src = currentCover;
         if (coverData) coverData.value = currentCover;
         if (coverUrlInput) coverUrlInput.value = (currentCover && !currentCover.startsWith('data:')) ? currentCover : '';
@@ -3926,7 +3926,7 @@ ${body.trim()}
       });
 
       editCoverResetBtn?.addEventListener('click', () => {
-        const defaultCover = '../assets/books/culture-that-lasts.png';
+        const defaultCover = '/assets/books/culture-that-lasts.png';
         if (editCoverPreview) editCoverPreview.src = defaultCover;
         if (editCoverData) editCoverData.value = defaultCover;
         if (editCoverUrlInput) editCoverUrlInput.value = '';
@@ -4606,7 +4606,7 @@ ${body.trim()}
           category: 'Workplace Culture',
           status: 'published',
           pages: '260 Pages',
-          cover: '../assets/books/culture-that-lasts.png',
+          cover: '/assets/books/culture-that-lasts.png',
           synopsis: 'Building resilient, purposeful workplace cultures that withstand rapid generational and technological shifts.',
           chapters: '1. The Foundation of Institutional Resilience\n2. Values Alignment in High-Pressure Environments\n3. Bridging Generational Nuance\n4. Sustaining Culture Through Crisis'
         },
@@ -4619,7 +4619,7 @@ ${body.trim()}
           category: 'Leadership & Strategy',
           status: 'published',
           pages: '196 Pages',
-          cover: '../assets/books/human-advantage.png',
+          cover: '/assets/books/human-advantage.png',
           synopsis: 'Why human empathy, moral imagination, and mentorship outperform raw algorithmic speed in executive leadership.',
           chapters: '1. The Limits of Cold Optimization\n2. Empathy as a Strategic Lever\n3. Moral Imagination in Executive Decisions\n4. Mentorship: The Non-Replicable Edge'
         },
@@ -4632,7 +4632,7 @@ ${body.trim()}
           category: 'Human Resources',
           status: 'published',
           pages: '240 Pages',
-          cover: '../assets/books/people-before-process.png',
+          cover: '/assets/books/people-before-process.png',
           synopsis: 'Reclaiming human dignity and creative initiative inside modern corporate systems.',
           chapters: '1. The Human Dignity Index\n2. Culture as an Operating System\n3. The Talent Alchemy Framework\n4. Freeing High-Performance Teams from Bureaucracy'
         },
@@ -4645,7 +4645,7 @@ ${body.trim()}
           category: 'Leadership & Strategy',
           status: 'scheduled',
           pages: '212 Pages',
-          cover: '../assets/books/leadership-habit.png',
+          cover: '/assets/books/leadership-habit.png',
           synopsis: 'Daily micro-disciplines of high-trust leaders and organizational stewards.',
           chapters: '1. The Morning Anchors of Principled Leaders\n2. Active Listening in Tense Negotiations\n3. Decisive Clarity over Consensus Paralysis\n4. Leaving an Enduring Leadership Legacy'
         }
@@ -4681,11 +4681,11 @@ ${body.trim()}
 
           const statusClass = book.status === 'published' ? 'published' : (book.status === 'scheduled' ? 'scheduled' : 'draft');
           const statusLabel = book.status === 'published' ? 'Published' : (book.status === 'scheduled' ? 'Upcoming' : 'Draft');
-          const coverImg = book.cover || '../assets/books/culture-that-lasts.png';
+          const coverImg = book.cover || '/assets/books/culture-that-lasts.png';
 
           card.innerHTML = `
             <div style="width:105px; height:155px; border-radius:6px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); flex-shrink:0; background:#ffffff; border:1px solid #cbd5e1;">
-              <img src="${coverImg}" alt="${book.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='../assets/books/culture-that-lasts.png'">
+              <img src="${coverImg}" alt="${book.title}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/assets/books/culture-that-lasts.png'">
             </div>
             <div style="display:flex; flex-direction:column; justify-content:space-between; flex:1; min-height:155px;">
               <div>
@@ -4752,7 +4752,7 @@ ${body.trim()}
         document.getElementById('bookCategoryInput').value = 'Workplace Culture';
         document.getElementById('bookStatusInput').value = 'published';
 
-        const defaultCover = '../assets/books/culture-that-lasts.png';
+        const defaultCover = '/assets/books/culture-that-lasts.png';
         document.getElementById('bookCoverPreviewImg').src = defaultCover;
         document.getElementById('bookCoverData').value = defaultCover;
         document.getElementById('bookCoverUrlInput').value = '';
@@ -4784,7 +4784,7 @@ ${body.trim()}
         document.getElementById('bookSynopsisInput').value = book.synopsis || '';
         document.getElementById('bookChaptersInput').value = book.chapters || '';
 
-        const cover = book.cover || '../assets/books/culture-that-lasts.png';
+        const cover = book.cover || '/assets/books/culture-that-lasts.png';
         document.getElementById('bookCoverPreviewImg').src = cover;
         document.getElementById('bookCoverData').value = cover;
         document.getElementById('bookCoverUrlInput').value = cover.startsWith('data:') ? '' : cover;
@@ -4850,7 +4850,7 @@ ${body.trim()}
 
       if (bookResetBtn) {
         bookResetBtn.addEventListener('click', () => {
-          const defaultCover = '../assets/books/culture-that-lasts.png';
+          const defaultCover = '/assets/books/culture-that-lasts.png';
           document.getElementById('bookCoverPreviewImg').src = defaultCover;
           document.getElementById('bookCoverData').value = defaultCover;
           document.getElementById('bookCoverUrlInput').value = '';
@@ -4884,7 +4884,7 @@ ${body.trim()}
           if (!slug) {
             slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
           }
-          const cover = document.getElementById('bookCoverData').value || '../assets/books/culture-that-lasts.png';
+          const cover = document.getElementById('bookCoverData').value || '/assets/books/culture-that-lasts.png';
           const synopsis = document.getElementById('bookSynopsisInput').value.trim();
           const chapters = document.getElementById('bookChaptersInput').value.trim();
 

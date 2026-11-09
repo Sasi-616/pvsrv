@@ -15,13 +15,13 @@
     location.pathname.includes('/admin/') ||
     location.pathname.includes('\\admin\\')
   );
-  const ROOT_PREFIX = IN_SUBDIR ? '../' : '';
-  const PAGE_PREFIX = IN_SUBDIR ? '' : 'pages/';
+  const ROOT_PREFIX = '/';
+  const PAGE_PREFIX = '/pages/';
 
   function formatPath(p) {
     if (!p) return '';
-    if (p.startsWith('http') || p.startsWith('data:') || p.startsWith('/')) return p;
-    return ROOT_PREFIX + p.replace(/^\.\.\//, '');
+    if (p.startsWith('http') || p.startsWith('data:')) return p;
+    return '/' + p.replace(/^(\.\.\/|\/)+/, '');
   }
 
   // Built-in Seed Books (Guarantees zero-blank initial state)
@@ -478,12 +478,12 @@
 
     // F. Wire Contact Form to Supabase PostgreSQL Inquiries
     setupContactForm: function () {
-      const form = document.querySelector('form#contactForm') || document.querySelector('form.contact-form');
+      const form = document.querySelector('form#contactForm') || document.querySelector('form#contactPageForm') || document.querySelector('form.contact-form') || document.querySelector('form.strategic-contact-form');
       if (!form || form.getAttribute('data-supabase-wired')) return;
       form.setAttribute('data-supabase-wired', 'true');
 
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+      const submitHandler = async function (e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn ? submitBtn.innerHTML : 'Send Inquiry';
         if (submitBtn) {
@@ -552,7 +552,10 @@
             submitBtn.innerHTML = originalText;
           }
         }
-      });
+      };
+
+      form.addEventListener('submit', submitHandler);
+      window.handleFormSubmission = submitHandler;
     },
 
     // Master initialization

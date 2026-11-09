@@ -37,12 +37,41 @@ test.describe('PVSRV Comprehensive Site Features Test Suite', () => {
     await formatBtn.click();
   });
 
-  test('Contact Page renders inquiry form and details', async ({ page }) => {
+  test('Contact Page submits inquiry form successfully and displays confirmation', async ({ page }) => {
     await page.goto('/pages/contact.html');
     await expect(page).toHaveTitle(/Connect|Consult|Contact/i);
 
-    const contactForm = page.locator('form, #contactForm, .contact-form').first();
+    const contactForm = page.locator('#contactForm');
     await expect(contactForm).toBeVisible();
+
+    await page.locator('#contactFullName').fill('Dr. Anita Desai');
+    await page.locator('#contactEmail').fill('anita.desai@globalhealth.org');
+    await page.locator('#contactPhone').fill('+91 98490 54321');
+    await page.locator('#contactOrg').fill('Global Health Innovations');
+    await page.locator('#contactDesignation').fill('VP Human Resources');
+    await page.locator('#contactPurpose').selectOption('advisory');
+    await page.locator('#contactMessage').fill('Requesting advisory workshop on executive psychological safety.');
+
+    await page.locator('#contactForm button[type="submit"]').click();
+
+    // Verify confirmation message appears
+    await expect(page.locator('#contactFormSuccess')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('#contactFormSuccess')).toContainText('Inquiry Received');
+  });
+
+  test('Homepage books carousel links directly to 3D Flipbook Reader', async ({ page }) => {
+    await page.goto('/');
+
+    const firstBookLink = page.locator('.book-item a.btn').first();
+    await expect(firstBookLink).toBeVisible();
+
+    const href = await firstBookLink.getAttribute('href');
+    expect(href).toContain('reader.html?book=');
+
+    // Click link and verify navigation to 3D Reader
+    await firstBookLink.click();
+    await expect(page).toHaveURL(/reader\.html\?book=/);
+    await expect(page.locator('#flipbookStage')).toBeVisible();
   });
 
   test('About Page renders executive timeline and pillars', async ({ page }) => {

@@ -94,33 +94,32 @@
 <!-- =========================================================================
      FEATURED ARTICLE LEAD SPOTLIGHT
      ========================================================================= -->
-)
 <section class="blog-featured-section">
   <div class="content-wrapper">
     <article class="blog-featured-banner-card">
       <div class="bf-image-col">
         <img src="/assets/blogs/growth-mindset.jpg" alt="Cultivating a Growth Mindset in Legacy Organizations: Breaking Complacency" class="bf-img">
-        <span class="bf-category-badge">{{ strtoupper($featured->category ?? 'LEADERSHIP STRATEGY') }}</span>
+        <span class="bf-category-badge">LEADERSHIP STRATEGY</span>
       </div>
       <div class="bf-text-col">
         <div class="bf-meta">
-          <span class="bf-date">{{ $featured->published_at ? date('F Y', strtotime($featured->published_at)) : 'August 2026' }}</span>
+          <span class="bf-date">August 2026</span>
           <span class="bf-dot">•</span>
-          <span class="bf-read-time">{{ $featured->read_time ?? '6 Min Read' }}</span>
+          <span class="bf-read-time">6 Min Read</span>
           <span class="bf-dot">•</span>
-          <span class="bf-author">By {{ $featured->author ?? 'PVS Ravindra Varma' }}</span>
+          <span class="bf-author">By PVS Ravindra Varma</span>
         </div>
         <h2 class="bf-title">Cultivating a Growth Mindset in Legacy Organizations: Breaking Complacency</h2>
         <p class="bf-excerpt">
           Established enterprises frequently fall into the trap of process calcification. When previous successes become gospel, intellectual curiosity suffocates.
         </p>
         <div class="bf-action-row">
-          <a href="/pages/blogs.html" class="btn btn-gold-solid">
+          <button type="button" onclick="openBlogArticleModal('growth-mindset')" class="btn btn-gold-solid" style="cursor:pointer; display:inline-flex; align-items:center; gap:0.5rem;">
             <span>Read Full Essay</span>
             <svg class="arrow-icon" viewBox="0 0 20 20" width="15" height="15" fill="currentColor">
               <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </article>

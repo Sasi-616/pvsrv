@@ -47,16 +47,10 @@
       <div class="fb-top-actions">
         <!-- Book Switcher -->
         <select id="bookSelector" class="fb-btn-action" style="background:#1c2028; border:1px solid #334155; cursor:pointer;">
-           && $allBooks->count() > 0)
-            
-              <option value="{{ $b->slug }}" {{ $currentSlug === $b->slug ? 'selected' : '' }}>Book: {{ $b->title }}</option>
-            
-          
-            <option value="people-before-process" {{ $currentSlug === 'people-before-process' ? 'selected' : '' }}>Book: People Before Process</option>
-            <option value="leadership-habit" {{ $currentSlug === 'leadership-habit' ? 'selected' : '' }}>Book: The Leadership Habit</option>
-            <option value="culture-that-lasts" {{ $currentSlug === 'culture-that-lasts' ? 'selected' : '' }}>Book: Culture That Lasts</option>
-            <option value="human-advantage" {{ $currentSlug === 'human-advantage' ? 'selected' : '' }}>Book: The Human Advantage</option>
-          
+          <option value="people-before-process">Book: People Before Process</option>
+          <option value="leadership-habit">Book: The Leadership Habit</option>
+          <option value="culture-that-lasts">Book: Culture That Lasts</option>
+          <option value="human-advantage">Book: The Human Advantage</option>
         </select>
 
         <!-- Page Segregation Jump Buttons -->
@@ -214,7 +208,7 @@
 
       // Parse initial book slug from server or URL param
       const urlParams = new URLSearchParams(window.location.search);
-      const initialBookKey = urlParams.get('book') || "{{ $currentSlug ?? 'people-before-process' }}";
+      const initialBookKey = urlParams.get('book') || 'people-before-process';
 
       // Initialize 3D FlipBook
       const book = new PVS_FlipBook('flipbookStage', {
