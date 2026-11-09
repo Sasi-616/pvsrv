@@ -33,7 +33,7 @@
       subtitle: 'Transforming Modern HR Architecture from Compliance to Human Empowerment',
       category: 'HR Strategy',
       pages: '248 Pages',
-      cover: 'assets/books/people-before-process.png',
+      cover: '/assets/books/people-before-process.png',
       synopsis: 'The foundational manual on dismantling toxic corporate bureaucracy, instituting radical trust, and putting human empathy at the center of organizational scaling.',
       chapters: [
         '1. The Evolution of Workplace Psychology',
@@ -56,7 +56,7 @@
       subtitle: 'Small Shifts. Big Change.',
       category: 'Executive Leadership',
       pages: '212 Pages',
-      cover: 'assets/books/leadership-habit.png',
+      cover: '/assets/books/leadership-habit.png',
       synopsis: 'A pragmatic behavioral playbook exploring micro-actions, cognitive poise under pressure, and systemic alignment.',
       chapters: [
         '1. Micro-Habits of Exceptional Executives',
@@ -78,7 +78,7 @@
       subtitle: 'Building Resilient, Purposeful Workplace Cultures',
       category: 'Organizational Culture',
       pages: '236 Pages',
-      cover: 'assets/books/culture-that-lasts.png',
+      cover: '/assets/books/culture-that-lasts.png',
       synopsis: 'How high-performing organizations safeguard their core values and purpose across rapid generational and technological shifts.',
       chapters: [
         '1. Foundational Values vs. Tactical Goals',
@@ -100,7 +100,7 @@
       subtitle: 'Leadership in the Age of Intelligent Automation',
       category: 'Future of Work',
       pages: '198 Pages',
-      cover: 'assets/books/human-advantage.png',
+      cover: '/assets/books/human-advantage.png',
       synopsis: 'Why emotional intelligence, empathy, and moral judgement are irreplaceable leadership assets in an AI-driven economy.',
       chapters: [
         '1. AI as an Amplifier of Human Purpose',
@@ -151,7 +151,7 @@
     saveBook: function (bookData) {
       if (!bookData.id) bookData.id = 'book-' + Date.now();
       if (!bookData.slug) bookData.slug = (bookData.title || 'untitled').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      if (!bookData.cover) bookData.cover = 'assets/books/culture-that-lasts.png';
+      if (!bookData.cover) bookData.cover = '/assets/books/culture-that-lasts.png';
       if (!bookData.status) bookData.status = 'published';
 
       let books = this.getBooks();
@@ -239,7 +239,7 @@
 
         const card = document.createElement('article');
         card.className = 'book-full-card dynamic-cms-book';
-        const coverSrc = formatPath(b.cover || 'assets/books/culture-that-lasts.png');
+        const coverSrc = formatPath(b.cover || '/assets/books/culture-that-lasts.png');
         const pointsHtml = (Array.isArray(b.points) && b.points.length > 0)
           ? b.points.map(pt => `<div class="bf-point">✓ ${pt}</div>`).join('')
           : `<div class="bf-point">✓ Comprehensive executive playbook</div><div class="bf-point">✓ Real-world case frameworks</div>`;
@@ -291,11 +291,11 @@
         item.className = 'book-item dynamic-cms-book';
         item.setAttribute('data-book-id', 'dyn-' + idx);
         item.setAttribute('data-book-key', key);
-        const coverSrc = formatPath(b.cover || 'assets/books/culture-that-lasts.png');
+        const coverSrc = formatPath(b.cover || '/assets/books/culture-that-lasts.png');
 
         item.innerHTML = `
           <a href="${PAGE_PREFIX}reader.html?book=${encodeURIComponent(key)}" class="book-cover-wrap" title="Read ${b.title} in 3D Flipbook" style="display:block; position:relative; text-decoration:none;">
-            <img src="${coverSrc}" alt="${b.title} Cover" class="book-img" width="250" height="304" loading="lazy" onerror="this.src='assets/books/culture-that-lasts.png'">
+            <img src="${coverSrc}" alt="${b.title} Cover" class="book-img" width="250" height="304" loading="lazy" onerror="this.src='/assets/books/culture-that-lasts.png'">
             <span class="book-flipbook-badge" style="position:absolute; bottom:8px; right:8px; background:rgba(14,16,21,0.92); color:#caa05b; font-size:0.68rem; font-weight:700; padding:0.25rem 0.55rem; border-radius:4px; border:1px solid rgba(202,160,91,0.5); display:inline-flex; align-items:center; gap:0.35rem;">
               <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
               <span>3D Flipbook</span>
@@ -352,7 +352,7 @@
 
           card.innerHTML = `
             <div class="blog-img-box" style="background:#f1f5f9; display:flex; align-items:center; justify-content:center;">
-              <img src="${formatPath(art.cover_img || art.image || 'assets/blogs/growth-mindset.jpg')}" alt="${art.title}" class="blog-cover-img" width="600" height="340" loading="lazy">
+              <img src="${formatPath(art.cover_img || art.image || '/assets/blogs/growth-mindset.jpg')}" alt="${art.title}" class="blog-cover-img" width="600" height="340" loading="lazy">
             </div>
             <div class="blog-details">
               <span class="blog-publish-date" style="color:var(--gold, #966e36); font-weight:700;">${art.date || 'NEW PUBLICATION'}</span>
@@ -381,7 +381,7 @@
 
           card.innerHTML = `
             <div style="height:190px; overflow:hidden; position:relative;">
-              <img src="${formatPath(art.cover_img || art.image || 'assets/blogs/growth-mindset.jpg')}" alt="${art.title}" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
+              <img src="${formatPath(art.cover_img || art.image || '/assets/blogs/growth-mindset.jpg')}" alt="${art.title}" style="width:100%; height:100%; object-fit:cover;" loading="lazy">
               <span style="position:absolute; top:12px; left:12px; background:#caa05b; color:#fff; font-size:0.7rem; font-weight:700; padding:3px 8px; border-radius:4px; text-transform:uppercase;">
                 ${art.category || 'INSIGHTS'}
               </span>

@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
 
     if (!body.id) body.id = 'book-' + Date.now();
     if (!body.slug) body.slug = body.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    if (!body.cover) body.cover = 'assets/books/culture-that-lasts.png';
+    if (!body.cover) body.cover = '/assets/books/culture-that-lasts.png';
     if (!body.status) body.status = 'published';
 
     if (isConfigured) {

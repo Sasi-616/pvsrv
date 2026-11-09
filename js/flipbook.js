@@ -229,14 +229,14 @@
       subtitle: 'Small Daily Micro-Disciplines that Compound into Transformative Organizational Results',
       author: 'PVS Ravindra Varma',
       totalPages: 8,
-      coverImg: 'assets/books/leadership-habit.png',
+      coverImg: '/assets/books/leadership-habit.png',
       pages: [
         {
           type: 'cover',
           title: 'The Leadership Habit',
           subtitle: 'Small Shifts. Big Change.',
           author: 'PVS Ravindra Varma',
-          coverImg: 'assets/books/leadership-habit.png',
+          coverImg: '/assets/books/leadership-habit.png',
           emblem: 'assets/logo.png',
           bg: 'linear-gradient(135deg, #2b1f1d 0%, #111215 100%)'
         },
@@ -313,7 +313,7 @@
           title: 'The Human Advantage',
           subtitle: 'Why Empathy & Moral Imagination Outperform Raw Algorithms',
           author: 'PVS Ravindra Varma',
-          coverImg: 'assets/books/human-advantage.png',
+          coverImg: '/assets/books/human-advantage.png',
           emblem: 'assets/logo.png',
           bg: 'linear-gradient(135deg, #192420 0%, #111215 100%)'
         },
@@ -351,14 +351,14 @@
           subtitle: found.subtitle || found.synopsis || '',
           author: found.author || 'PVS Ravindra Varma',
           totalPages: 8,
-          cover: found.cover || 'assets/books/culture-that-lasts.png',
+          cover: found.cover || '/assets/books/culture-that-lasts.png',
           pages: [
             {
               type: 'cover',
               title: found.title,
               subtitle: found.subtitle || '',
               author: found.author || 'PVS Ravindra Varma',
-              coverImg: found.cover || 'assets/books/culture-that-lasts.png',
+              coverImg: found.cover || '/assets/books/culture-that-lasts.png',
               bg: 'linear-gradient(135deg, #1e222d 0%, #111215 100%)'
             },
             {

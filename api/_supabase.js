@@ -27,7 +27,7 @@ const SEED_BOOKS = [
     author: 'PVS Ravindra Varma',
     category: 'HR Strategy',
     pages: '248 Pages',
-    cover: 'assets/books/people-before-process.png',
+    cover: '/assets/books/people-before-process.png',
     synopsis: 'The foundational manual on dismantling toxic corporate bureaucracy, instituting radical trust, and putting human empathy at the center of organizational scaling.',
     points: [
       'Transitioning from attendance to outcomes',
@@ -44,7 +44,7 @@ const SEED_BOOKS = [
     author: 'PVS Ravindra Varma',
     category: 'Executive Leadership',
     pages: '212 Pages',
-    cover: 'assets/books/leadership-habit.png',
+    cover: '/assets/books/leadership-habit.png',
     synopsis: 'A pragmatic behavioral playbook exploring micro-actions, cognitive poise under pressure, and systemic alignment.',
     points: [
       'Cognitive poise under intense boardroom pressure',
@@ -61,7 +61,7 @@ const SEED_BOOKS = [
     author: 'PVS Ravindra Varma',
     category: 'Organizational Culture',
     pages: '236 Pages',
-    cover: 'assets/books/culture-that-lasts.png',
+    cover: '/assets/books/culture-that-lasts.png',
     synopsis: 'How high-performing organizations safeguard their core values and purpose across rapid generational and technological shifts.',
     points: [
       'Preserving organizational DNA during expansion',
@@ -78,7 +78,7 @@ const SEED_BOOKS = [
     author: 'PVS Ravindra Varma',
     category: 'Future of Work',
     pages: '198 Pages',
-    cover: 'assets/books/human-advantage.png',
+    cover: '/assets/books/human-advantage.png',
     synopsis: 'Why emotional intelligence, empathy, and moral judgement are irreplaceable leadership assets in an AI-driven economy.',
     points: [
       'Human empathy as the ultimate differentiator',
@@ -97,7 +97,7 @@ const SEED_ARTICLES = [
     category: 'Corporate Counselling',
     author: 'PVS Ravindra Varma',
     read_time: '6 Min Read',
-    image: 'assets/blogs/growth-mindset.jpg',
+    image: '/assets/blogs/growth-mindset.jpg',
     summary: 'Established enterprises frequently fall into the trap of process calcification. When previous successes become gospel, intellectual curiosity suffocates.',
     body: '<p>Established enterprises frequently fall into the trap of process calcification. When previous successes become gospel, intellectual curiosity suffocates.</p>',
     views: 450,

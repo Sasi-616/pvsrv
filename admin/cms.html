@@ -4681,7 +4681,8 @@ ${body.trim()}
 
           const statusClass = book.status === 'published' ? 'published' : (book.status === 'scheduled' ? 'scheduled' : 'draft');
           const statusLabel = book.status === 'published' ? 'Published' : (book.status === 'scheduled' ? 'Upcoming' : 'Draft');
-          const coverImg = book.cover || '/assets/books/culture-that-lasts.png';
+          const rawCover = book.cover || '/assets/books/culture-that-lasts.png';
+          const coverImg = rawCover.startsWith('http') || rawCover.startsWith('data:') ? rawCover : (rawCover.startsWith('/') ? rawCover : '/' + rawCover.replace(/^(\.\.\/|\/)+/, ''));
 
           card.innerHTML = `
             <div style="width:105px; height:155px; border-radius:6px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); flex-shrink:0; background:#ffffff; border:1px solid #cbd5e1;">
